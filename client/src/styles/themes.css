@@ -1,0 +1,261 @@
+/* ============================================================
+   DARK THEME  (default — Black & Gold)
+   ============================================================ */
+[data-theme="dark"],
+:root {
+  --bg:           #0A0A0A;
+  --bg-secondary: #111111;
+  --bg-tertiary:  #171717;
+
+  --text:      #FFFFFF;
+  --text-muted:#A3A3A3;
+  --text-dim:  #555555;
+  --text-h:    #FFFFFF;
+
+  --accent:       #D4AF37;
+  --accent-hover: #E8C84A;
+  --accent-dim:   rgba(212, 175, 55, 0.08);
+  --accent-light: rgba(212, 175, 55, 0.15);
+  --accent-warm:  rgba(212, 175, 55, 0.25);
+  --accent-cream: #F5E6A0;
+
+  --border:       rgba(212, 175, 55, 0.15);
+  --border-hover: rgba(212, 175, 55, 0.35);
+  --border-warm:  rgba(212, 175, 55, 0.5);
+
+  --glass-bg:     rgba(10, 10, 10, 0.80);
+  --glass-border: rgba(212, 175, 55, 0.10);
+
+  --shadow-sm:     0 2px 8px  rgba(0, 0, 0, 0.5);
+  --shadow-md:     0 8px 24px rgba(0, 0, 0, 0.6);
+  --shadow-lg:     0 16px 48px rgba(0, 0, 0, 0.7);
+  --shadow-accent: 0 0 24px   rgba(212, 175, 55, 0.25);
+  --shadow-warm:   0 0 20px   rgba(212, 175, 55, 0.15);
+  --shadow:        0 10px 30px rgba(212, 175, 55, 0.12);
+
+  --card-bg:          rgba(212, 175, 55, 0.04);
+  --card-border:      rgba(212, 175, 55, 0.12);
+  --card-hover-bg:    rgba(212, 175, 55, 0.08);
+  --card-hover-border:rgba(212, 175, 55, 0.30);
+
+  --input-bg:           rgba(212, 175, 55, 0.05);
+  --input-border:       rgba(212, 175, 55, 0.18);
+  --input-focus-border: rgba(212, 175, 55, 0.55);
+  --input-focus-ring:   0 0 0 3px rgba(212, 175, 55, 0.12);
+  --input-text:         #FFFFFF;
+  --input-placeholder:  rgba(212, 175, 55, 0.35);
+
+  --btn-primary-bg:     #D4AF37;
+  --btn-primary-hover:  #E8C84A;
+  --btn-primary-text:   #0A0A0A;
+  --btn-primary-shadow: 0 0 24px rgba(212, 175, 55, 0.35);
+
+  --btn-secondary-bg:     rgba(212, 175, 55, 0.10);
+  --btn-secondary-hover:  rgba(212, 175, 55, 0.18);
+  --btn-secondary-border: rgba(212, 175, 55, 0.25);
+  --btn-secondary-text:   #D4AF37;
+
+  --btn-warm-bg:     rgba(212, 175, 55, 0.10);
+  --btn-warm-hover:  rgba(212, 175, 55, 0.20);
+  --btn-warm-border: rgba(212, 175, 55, 0.30);
+  --btn-warm-text:   #E8C84A;
+  --btn-warm-shadow: 0 0 16px rgba(212, 175, 55, 0.20);
+
+  --btn-ghost-text:       #A3A3A3;
+  --btn-ghost-hover-text: #D4AF37;
+  --btn-ghost-hover-bg:   rgba(212, 175, 55, 0.07);
+
+  --nav-bg:          rgba(10, 10, 10, 0.88);
+  --nav-border:      rgba(212, 175, 55, 0.10);
+  --nav-link:        #A3A3A3;
+  --nav-link-hover:  #FFFFFF;
+  --nav-link-active: #D4AF37;
+
+  --tooltip-bg:     rgba(17, 17, 17, 0.97);
+  --tooltip-border: rgba(212, 175, 55, 0.18);
+  --tooltip-text:   #FFFFFF;
+
+  --code-bg:      rgba(212, 175, 55, 0.06);
+  --code-border:  rgba(212, 175, 55, 0.12);
+  --code-text:    #F5E6A0;
+  --code-keyword: #D4AF37;
+  --code-string:  #E8C84A;
+  --code-comment: #555555;
+
+  --overlay:        rgba(10, 10, 10, 0.65);
+  --scrollbar-thumb:rgba(212, 175, 55, 0.22);
+  --social-bg:      rgba(212, 175, 55, 0.08);
+  --accent-bg:      rgba(212, 175, 55, 0.10);
+  --accent-border:  rgba(212, 175, 55, 0.40);
+
+  --success: #7EC8A4;
+  --warning: #E8C84A;
+  --error:   #E87070;
+  --info:    #D4AF37;
+
+  --gradient-hero: linear-gradient(
+    180deg,
+    rgba(212, 175, 55, 0.07) 0%,
+    rgba(232, 200, 74,  0.03) 40%,
+    rgba(212, 175, 55, 0.02) 70%,
+    transparent 100%
+  );
+  --gradient-card: linear-gradient(
+    135deg,
+    rgba(212, 175, 55, 0.06) 0%,
+    rgba(232, 200, 74,  0.03) 100%
+  );
+  --gradient-border: linear-gradient(
+    135deg,
+    rgba(212, 175, 55, 0.45),
+    rgba(232, 200, 74,  0.25),
+    rgba(245, 230, 160, 0.20),
+    rgba(212, 175, 55, 0.30)
+  );
+
+  --font-main:  "Space Grotesk", system-ui, sans-serif;
+  --h1-size:    56px;
+  --p-size:     16px;
+  --space-sm:   8px;
+  --space-md:   16px;
+  --space-lg:   32px;
+  --radius:     12px;
+}
+
+/* ============================================================
+   LIGHT THEME  (Black & Gold — warm cream)
+   ============================================================ */
+[data-theme="light"] {
+  --bg:           #FAF6EE;
+  --bg-secondary: #F3EDD8;
+  --bg-tertiary:  #EDE5CC;
+
+  --text:      #1A1400;
+  --text-muted:#6B5F3A;
+  --text-dim:  #9A8E6A;
+  --text-h:    #1A1400;
+
+  --accent:       #B8860B;
+  --accent-hover: #D4AF37;
+  --accent-dim:   rgba(184, 134, 11, 0.08);
+  --accent-light: rgba(184, 134, 11, 0.15);
+  --accent-warm:  rgba(184, 134, 11, 0.25);
+  --accent-cream: #7A5C00;
+
+  --border:       rgba(184, 134, 11, 0.20);
+  --border-hover: rgba(184, 134, 11, 0.40);
+  --border-warm:  rgba(184, 134, 11, 0.55);
+
+  --glass-bg:     rgba(255, 252, 240, 0.80);
+  --glass-border: rgba(184, 134, 11, 0.14);
+
+  --shadow-sm:     0 2px 8px  rgba(100, 70, 0, 0.08);
+  --shadow-md:     0 8px 24px rgba(100, 70, 0, 0.10);
+  --shadow-lg:     0 16px 48px rgba(100, 70, 0, 0.12);
+  --shadow-accent: 0 0 24px   rgba(184, 134, 11, 0.18);
+  --shadow-warm:   0 0 20px   rgba(184, 134, 11, 0.12);
+  --shadow:        0 10px 30px rgba(184, 134, 11, 0.10);
+
+  --card-bg:          rgba(255, 252, 240, 0.70);
+  --card-border:      rgba(184, 134, 11, 0.14);
+  --card-hover-bg:    rgba(184, 134, 11, 0.06);
+  --card-hover-border:rgba(184, 134, 11, 0.32);
+
+  --input-bg:           rgba(255, 255, 255, 0.85);
+  --input-border:       rgba(184, 134, 11, 0.22);
+  --input-focus-border: rgba(184, 134, 11, 0.55);
+  --input-focus-ring:   0 0 0 3px rgba(184, 134, 11, 0.10);
+  --input-text:         #1A1400;
+  --input-placeholder:  rgba(184, 134, 11, 0.40);
+
+  --btn-primary-bg:     #B8860B;
+  --btn-primary-hover:  #D4AF37;
+  --btn-primary-text:   #FFFFFF;
+  --btn-primary-shadow: 0 0 24px rgba(184, 134, 11, 0.22);
+
+  --btn-secondary-bg:     rgba(184, 134, 11, 0.10);
+  --btn-secondary-hover:  rgba(184, 134, 11, 0.18);
+  --btn-secondary-border: rgba(184, 134, 11, 0.25);
+  --btn-secondary-text:   #B8860B;
+
+  --btn-warm-bg:     rgba(184, 134, 11, 0.10);
+  --btn-warm-hover:  rgba(184, 134, 11, 0.20);
+  --btn-warm-border: rgba(184, 134, 11, 0.30);
+  --btn-warm-text:   #8B6200;
+  --btn-warm-shadow: 0 0 16px rgba(184, 134, 11, 0.15);
+
+  --btn-ghost-text:       #6B5F3A;
+  --btn-ghost-hover-text: #B8860B;
+  --btn-ghost-hover-bg:   rgba(184, 134, 11, 0.07);
+
+  --nav-bg:          rgba(250, 246, 238, 0.90);
+  --nav-border:      rgba(184, 134, 11, 0.12);
+  --nav-link:        #6B5F3A;
+  --nav-link-hover:  #1A1400;
+  --nav-link-active: #B8860B;
+
+  --tooltip-bg:     rgba(255, 252, 240, 0.98);
+  --tooltip-border: rgba(184, 134, 11, 0.18);
+  --tooltip-text:   #1A1400;
+
+  --code-bg:      rgba(184, 134, 11, 0.06);
+  --code-border:  rgba(184, 134, 11, 0.14);
+  --code-text:    #7A5C00;
+  --code-keyword: #B8860B;
+  --code-string:  #8B6200;
+  --code-comment: #9A8E6A;
+
+  --overlay:         rgba(250, 246, 238, 0.65);
+  --scrollbar-thumb: rgba(184, 134, 11, 0.28);
+  --social-bg:       rgba(184, 134, 11, 0.08);
+  --accent-bg:       rgba(184, 134, 11, 0.10);
+  --accent-border:   rgba(184, 134, 11, 0.42);
+
+  --success: #2E7D52;
+  --warning: #B8860B;
+  --error:   #B84040;
+  --info:    #B8860B;
+
+  --gradient-hero: linear-gradient(
+    180deg,
+    rgba(184, 134, 11, 0.06) 0%,
+    rgba(212, 175, 55, 0.03) 40%,
+    rgba(184, 134, 11, 0.02) 70%,
+    transparent 100%
+  );
+  --gradient-card: linear-gradient(
+    135deg,
+    rgba(184, 134, 11, 0.05) 0%,
+    rgba(212, 175, 55, 0.03) 100%
+  );
+  --gradient-border: linear-gradient(
+    135deg,
+    rgba(184, 134, 11, 0.38),
+    rgba(212, 175, 55, 0.22),
+    rgba(232, 200, 74,  0.18),
+    rgba(184, 134, 11, 0.28)
+  );
+}
+
+/* ============================================================
+   THEME TRANSITIONS
+   ============================================================ */
+[data-theme],
+[data-theme] *,
+[data-theme] *::before,
+[data-theme] *::after {
+  transition:
+    background-color 0.3s ease,
+    border-color     0.3s ease,
+    color            0.2s ease,
+    box-shadow       0.3s ease,
+    fill             0.2s ease,
+    stroke           0.2s ease;
+}
+
+.no-transition,
+.no-transition *,
+.no-transition *::before,
+.no-transition *::after {
+  transition: none !important;
+}

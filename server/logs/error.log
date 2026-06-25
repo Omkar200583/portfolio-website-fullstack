@@ -1,0 +1,88 @@
+[2026-06-18 10:20:16] [31merror[39m: MongoDB connection error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.9xvqo2z.mongodb.net
+[2026-06-18 10:21:56] [31merror[39m: MongoDB connection error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.9xvqo2z.mongodb.net
+[2026-06-18 10:22:18] [31merror[39m: MongoDB connection error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.9xvqo2z.mongodb.net
+[2026-06-18 10:22:38] [31merror[39m: MongoDB connection error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.9xvqo2z.mongodb.net
+[2026-06-18 10:25:38] [31merror[39m: MongoDB connection error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.9xvqo2z.mongodb.net
+[2026-06-18 10:28:00] [31merror[39m: MongoDB connection error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.9xvqo2z.mongodb.net
+[2026-06-18 10:30:12] [31merror[39m: MongoDB connection error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.9xvqo2z.mongodb.net
+[2026-06-18 10:30:17] [31merror[39m: MongoDB connection error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.9xvqo2z.mongodb.net
+[2026-06-18 20:45:14] [31merror[39m: MongoDB connection error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.9xvqo2z.mongodb.net
+[2026-06-18 20:50:43] [31merror[39m: MongoDB connection error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.eejnlgw.mongodb.net
+[2026-06-18 20:53:33] [31merror[39m: MongoDB connection error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.eejnlgw.mongodb.net
+[2026-06-18 21:06:13] [31merror[39m: MongoDB connection error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.vx9qsfa.mongodb.net
+[2026-06-19 12:43:57] [31merror[39m: AI Chat error: Cannot read properties of undefined (reading 'completions')
+[2026-06-19 12:46:27] [31merror[39m: AI Chat error: Cannot read properties of undefined (reading 'completions')
+[2026-06-19 13:11:33] [31merror[39m: AI Chat error: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.
+[2026-06-19 13:12:29] [31merror[39m: AI Chat error: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.
+[2026-06-19 13:22:20] [31merror[39m: AI Chat error: 404 status code (no body)
+[2026-06-19 13:24:15] [31merror[39m: AI Chat error: 404 status code (no body)
+[2026-06-19 13:26:07] [31merror[39m: AI Chat error: 404 status code (no body)
+[2026-06-19 13:27:56] [31merror[39m: AI Chat error: 404 status code (no body)
+[2026-06-19 19:55:04] [31merror[39m: AI Chat error: 404 status code (no body)
+[2026-06-19 19:55:19] [31merror[39m: AI Chat error: 404 status code (no body)
+[2026-06-20 11:11:51] [31merror[39m: Start interview error: Interview validation failed: jobTitle: Path `jobTitle` is required.
+[2026-06-20 11:11:55] [31merror[39m: Start interview error: Interview validation failed: jobTitle: Path `jobTitle` is required.
+[2026-06-20 11:11:58] [31merror[39m: Start interview error: Interview validation failed: jobTitle: Path `jobTitle` is required.
+[2026-06-20 11:15:55] [31merror[39m: Start interview error: Interview validation failed: jobTitle: Path `jobTitle` is required.
+[2026-06-20 11:16:04] [31merror[39m: Start interview error: Interview validation failed: jobTitle: Path `jobTitle` is required.
+[2026-06-20 11:16:20] [31merror[39m: Start interview error: Interview validation failed: jobTitle: Path `jobTitle` is required.
+[2026-06-20 11:26:54] [31merror[39m: Not found - /api/ai/tts - /api/ai/tts - POST - ::1
+[2026-06-20 11:27:09] [31merror[39m: Not found - /api/ai/tts - /api/ai/tts - POST - ::1
+[2026-06-20 11:27:22] [31merror[39m: Not found - /api/ai/tts - /api/ai/tts - POST - ::1
+[2026-06-20 11:27:41] [31merror[39m: Not found - /api/ai/tts - /api/ai/tts - POST - ::1
+[2026-06-20 11:27:43] [31merror[39m: Not found - /api/ai/tts - /api/ai/tts - POST - ::1
+[2026-06-20 11:27:45] [31merror[39m: Not found - /api/recordings/upload/df3c137b-128f-4b8e-b63c-c26e699e282e - /api/recordings/upload/df3c137b-128f-4b8e-b63c-c26e699e282e - POST - ::1
+[2026-06-20 11:27:45] [31merror[39m: Not found - /api/ai/interview/summary/df3c137b-128f-4b8e-b63c-c26e699e282e - /api/ai/interview/summary/df3c137b-128f-4b8e-b63c-c26e699e282e - GET - ::1
+[2026-06-20 12:34:40] [31merror[39m: ❌ Failed to send contact email: Invalid login: 535 5.7.8 Authentication failed
+[2026-06-20 12:34:43] [31merror[39m: ❌ Failed to send contact email: Invalid login: 535 5.7.8 Authentication failed
+[2026-06-21 10:05:09] [31merror[39m: Not found - /api.js - /api.js - GET - ::1
+[2026-06-21 10:05:11] [31merror[39m: Not found - /api.js - /api.js - GET - ::1
+[2026-06-21 10:05:12] [31merror[39m: Not found - /api.js - /api.js - GET - ::1
+[2026-06-21 10:05:12] [31merror[39m: Not found - /api.js - /api.js - GET - ::1
+[2026-06-21 10:05:17] [31merror[39m: Not found - /api.js - /api.js - GET - ::1
+[2026-06-21 10:06:57] [31merror[39m: Not found - /api.js - /api.js - GET - ::1
+[2026-06-21 10:06:58] [31merror[39m: Not found - /api.js - /api.js - GET - ::1
+[2026-06-21 10:30:32] [31merror[39m: Not found - /api/api/admin/ai-leads - /api/api/admin/ai-leads - GET - ::1
+[2026-06-21 10:30:32] [31merror[39m: Not found - /api/api/admin/ai-leads - /api/api/admin/ai-leads - GET - ::1
+[2026-06-21 10:30:49] [31merror[39m: Not found - /api/api/admin/ai-leads - /api/api/admin/ai-leads - GET - ::1
+[2026-06-21 10:30:49] [31merror[39m: Not found - /api/api/admin/ai-leads - /api/api/admin/ai-leads - GET - ::1
+[2026-06-21 10:59:30] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 10:59:30] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 10:59:33] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 10:59:33] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 10:59:39] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 10:59:39] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 12:05:11] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 12:05:11] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 12:05:14] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 12:05:14] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 12:07:43] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 12:07:43] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 13:10:01] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 13:10:01] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 13:10:09] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 13:10:09] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 13:15:29] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 13:15:29] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 13:16:04] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 13:16:04] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 13:16:28] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 13:16:28] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 13:20:08] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 13:20:08] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 13:20:12] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 13:20:12] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 13:22:56] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 13:22:56] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 13:23:09] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 13:23:09] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 13:26:58] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 13:26:58] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 13:27:03] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 13:27:03] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 13:30:52] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 13:30:52] [31merror[39m: Not found - /api/admin/ai-leads - /api/admin/ai-leads - GET - ::1
+[2026-06-21 18:43:32] [31merror[39m: Unexpected field - /api/experience - POST - ::1
+[2026-06-21 18:43:38] [31merror[39m: Unexpected field - /api/experience - POST - ::1
+[2026-06-25 19:50:54] [31merror[39m: Not found - /api/todos - /api/todos - GET - ::1
+[2026-06-25 23:30:40] [31merror[39m: Request Timeout - /api/blog - POST - ::1

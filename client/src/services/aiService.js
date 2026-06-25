@@ -1,0 +1,256 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// AI Service — Production Mode (Connected to Backend)
+// ─────────────────────────────────────────────────────────────────────────────
+
+const API_BASE = "/api";
+
+// ─── CHAT AI ─────────────────────────────────────────────────────────────────
+export const chatAI = async (message, history = []) => {
+  try {
+    const messagesPayload = [
+      ...(history || []).map((m) => ({
+        role: m.role,
+        content: m.text || m.content,
+      })),
+      { role: "user", content: message },
+    ];
+
+    const response = await fetch(`${API_BASE}/ai/chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages: messagesPayload }),
+    });
+
+    if (!response.ok) {
+      const errData = await response.json().catch(() => ({}));
+      throw new Error(errData.message || `API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return {
+      reply: data.data?.message?.content || "Sorry, I couldn't generate a response.",
+    };
+  } catch (error) {
+    console.error("[AIService] Error:", error);
+    throw new Error(error.message || "Failed to get AI response.");
+  }
+};
+
+// ─── AI TOOL: RESUME BUILDER ─────────────────────────────────────────────────
+export const generateResume = async (details) => {
+  try {
+    const response = await fetch(`${API_BASE}/ai/resume/generate`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(details),
+    });
+
+    const data = await response.json();
+    if (!data.success) throw new Error(data.message);
+    return { resume: data.data.resume };
+  } catch (error) {
+    console.error("[AIService] Resume Error:", error);
+    throw new Error(error.message);
+  }
+};
+
+// ─── AI TOOL: RESUME ANALYZER ────────────────────────────────────────────────
+export const analyzeResume = async (resumeText, targetRole) => {
+  try {
+    const response = await fetch(`${API_BASE}/ai/resume/analyze`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ resumeText, jobDescription: targetRole }),
+    });
+
+    const data = await response.json();
+    if (!data.success) throw new Error(data.message);
+    return data.data.analysis;
+  } catch (error) {
+    console.error("[AIService] Analyze Error:", error);
+    throw new Error(error.message);
+  }
+};
+
+// ─── AI TOOL: MOCK INTERVIEW (Legacy widget) ─────────────────────────────────
+export const interviewAI = async (question, answer) => {
+  try {
+    const response = await fetch(`${API_BASE}/ai/interview/answer`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ answer, sessionId: question }),
+    });
+
+    const data = await response.json();
+    if (!data.success) throw new Error(data.message);
+    return data.data;
+  } catch (error) {
+    console.error("[AIService] Interview Error:", error);
+    throw new Error(error.message);
+  }
+};
+
+// ─── AI TOOL: CAREER GUIDE ──────────────────────────────────────────────────
+export const careerGuideAI = async (goal) => {
+  try {
+    const response = await fetch(`${API_BASE}/ai/career/advice`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question: goal }),
+    });
+
+    const data = await response.json();
+    if (!data.success) throw new Error(data.message);
+    return data.data;
+  } catch (error) {
+    console.error("[AIService] Career Error:", error);
+    throw new Error(error.message);
+  }
+};
+
+// ─── PAGE VIEW TRACKER ──────────────────────────────────────────────────────
+export const trackPageView = (path) => {
+  console.log("[Analytics] Page view:", path);
+};
+
+// ─── ADMIN AI SERVICE ───────────────────────────────────────────────────────
+export const aiService = {
+  getStats: async () => {
+    try {
+      // ✅ FIXED: Was using "token", but your app stores it as "accessToken"
+      const token = localStorage.getItem("accessToken");
+      if (!token) {
+        console.error("[AIService] No accessToken found in localStorage");
+        return { success: false, message: "Not authenticated" };
+      }
+
+      const response = await fetch(`${API_BASE}/ai/stats`, {
+        headers: { 
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}` 
+        },
+      });
+
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.message || `HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("[AIService] Stats Error:", error);
+      return { success: false, message: error.message };
+    }
+  },
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// MOCK INTERVIEW — LIVE SESSION FUNCTIONS
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// ─── START INTERVIEW SESSION ─────────────────────────────────────────────────
+export const startInterviewSession = async (jobTitle, resumeText) => {
+  const response = await fetch(`${API_BASE}/ai/interview/start`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      jobTitle,
+      resume: resumeText || undefined,
+    }),
+  });
+
+  const data = await response.json();
+
+  if (!data.success) {
+    throw new Error(data.message);
+  }
+
+  return data.data;
+};
+
+// ─── SUBMIT ANSWER ───────────────────────────────────────────────────────────
+export const submitInterviewAnswer = async (sessionId, answer) => {
+  const response = await fetch(`${API_BASE}/ai/interview/answer`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ sessionId, answer }),
+  });
+
+  const data = await response.json();
+
+  if (!data.success) {
+    throw new Error(data.message);
+  }
+
+  return data.data;
+};
+
+// ─── GET SUMMARY ─────────────────────────────────────────────────────────────
+export const getInterviewSummaryAPI = async (sessionId) => {
+  const response = await fetch(`${API_BASE}/ai/interview/summary/${sessionId}`);
+  const data = await response.json();
+
+  if (!data.success) {
+    throw new Error(data.message);
+  }
+
+  return data.data;
+};
+
+// ─── TEXT TO SPEECH ──────────────────────────────────────────────────────────
+export const textToSpeechAPI = async (text) => {
+  const response = await fetch(`${API_BASE}/ai/tts`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text }),
+  });
+
+  const data = await response.json();
+
+  if (!data.success) {
+    throw new Error(data.message);
+  }
+
+  return data.data.audioUrl;
+};
+
+// ─── SPEECH TO TEXT ──────────────────────────────────────────────────────────
+export const transcribeAudioAPI = async (audioBlob) => {
+  const formData = new FormData();
+  formData.append("audio", audioBlob, "recording.webm");
+
+  const response = await fetch(`${API_BASE}/ai/transcribe`, {
+    method: "POST",
+    body: formData,
+  });
+
+  const data = await response.json();
+
+  if (!data.success) {
+    throw new Error(data.message);
+  }
+
+  return data.data.text;
+};
+
+// ─── UPLOAD RECORDING ────────────────────────────────────────────────────────
+export const uploadInterviewRecordingAPI = async (sessionId, videoBlob) => {
+  const formData = new FormData();
+  formData.append("video", videoBlob, `interview-${sessionId}.webm`);
+
+  const response = await fetch(`${API_BASE}/recordings/upload/${sessionId}`, {
+    method: "POST",
+    body: formData,
+  });
+
+  const data = await response.json();
+
+  if (!data.success) {
+    throw new Error(data.message);
+  }
+
+  return data.data.url;
+};
+
+export default chatAI;

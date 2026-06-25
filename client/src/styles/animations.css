@@ -1,0 +1,283 @@
+/* ===== FADE IN ===== */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ===== FADE IN UP ===== */
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-in-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== SLIDE UP ===== */
+.slide-up {
+  animation: slideUp 0.6s ease-in-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ===== SLIDE DOWN ===== */
+.slide-down {
+  animation: slideDown 0.5s ease-in-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ===== PULSE GLOW — blue + warm cycle ===== */
+.glow-pulse {
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    opacity: 0.6;
+    box-shadow: 0 0 10px rgba(140, 192, 235, 0.4);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 25px rgba(255, 235, 204, 0.6);
+  }
+}
+
+/* ===== PULSE GLOW — blue only ===== */
+.glow-pulse-blue {
+  animation: pulseGlowBlue 2.5s ease-in-out infinite;
+}
+
+@keyframes pulseGlowBlue {
+  0%,
+  100% {
+    box-shadow: 0 0 8px rgba(140, 192, 235, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 22px rgba(140, 192, 235, 0.55);
+  }
+}
+
+/* ===== PULSE GLOW — warm only ===== */
+.glow-pulse-warm {
+  animation: pulseGlowWarm 2.5s ease-in-out infinite;
+}
+
+@keyframes pulseGlowWarm {
+  0%,
+  100% {
+    box-shadow: 0 0 8px rgba(255, 235, 204, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 22px rgba(255, 235, 204, 0.5);
+  }
+}
+
+/* ===== PULSE GLOW — cream subtle ===== */
+.glow-pulse-cream {
+  animation: pulseGlowCream 3s ease-in-out infinite;
+}
+
+@keyframes pulseGlowCream {
+  0%,
+  100% {
+    box-shadow: 0 0 6px rgba(255, 249, 210, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(255, 249, 210, 0.4);
+  }
+}
+
+/* ===== BORDER GLOW CYCLE ===== */
+.border-glow {
+  animation: borderGlow 3s ease-in-out infinite;
+}
+
+@keyframes borderGlow {
+  0%,
+  100% {
+    border-color: rgba(140, 192, 235, 0.25);
+    box-shadow: 0 0 10px rgba(140, 192, 235, 0.1);
+  }
+  33% {
+    border-color: rgba(191, 221, 240, 0.3);
+    box-shadow: 0 0 10px rgba(191, 221, 240, 0.12);
+  }
+  66% {
+    border-color: rgba(255, 235, 204, 0.25);
+    box-shadow: 0 0 10px rgba(255, 235, 204, 0.1);
+  }
+}
+
+/* ===== TEXT SHIMMER — blue → cream → warm ===== */
+.text-shimmer {
+  background: linear-gradient(
+    110deg,
+    #8CC0EB 0%,
+    #BFDDF0 25%,
+    #FFF9D2 50%,
+    #FFEBCC 75%,
+    #8CC0EB 100%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 50%;
+  }
+  50% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ===== FLOAT ===== */
+.float {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* ===== SPIN SLOW ===== */
+.spin-slow {
+  animation: spinSlow 12s linear infinite;
+}
+
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===== SCALE IN ===== */
+.scale-in {
+  animation: scaleIn 0.4s ease-out;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ===== GRADIENT BG SHIFT — 4 colors ===== */
+.gradient-shift {
+  background: linear-gradient(
+    135deg,
+    rgba(140, 192, 235, 0.12) 0%,
+    rgba(191, 221, 240, 0.08) 33%,
+    rgba(255, 249, 210, 0.06) 66%,
+    rgba(255, 235, 204, 0.08) 100%
+  );
+  background-size: 400% 400%;
+  animation: gradientShift 8s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ===== STAGGER CHILDREN (add to parent) ===== */
+.stagger-children > * {
+  opacity: 0;
+  animation: fadeInUp 0.5s ease-in-out forwards;
+}
+
+.stagger-children > *:nth-child(1) {
+  animation-delay: 0ms;
+}
+.stagger-children > *:nth-child(2) {
+  animation-delay: 80ms;
+}
+.stagger-children > *:nth-child(3) {
+  animation-delay: 160ms;
+}
+.stagger-children > *:nth-child(4) {
+  animation-delay: 240ms;
+}
+.stagger-children > *:nth-child(5) {
+  animation-delay: 320ms;
+}
+.stagger-children > *:nth-child(6) {
+  animation-delay: 400ms;
+}
+.stagger-children > *:nth-child(7) {
+  animation-delay: 480ms;
+}
+.stagger-children > *:nth-child(8) {
+  animation-delay: 560ms;
+}
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
