@@ -44,7 +44,7 @@ import AdminUsers from "./pages/admin/Users/Users";
 import AdminAIUsers from "./pages/admin/AIUsers/AdminAIUsers";
 
 // ─── Protection ──────────────────────────────────────────────────────────────
-import ProtectedAdminRoute from "./components/admin/ProtectedAdminRoute";
+import ProtectedAdminRoute from "./components/admin/Protectedadminroute";
 
 // ─── Shared Components ───────────────────────────────────────────────────────
 import AIChatWidget from "./components/ai/AIChatWidget";
