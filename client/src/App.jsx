@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { trackPageView } from "./services/analyticsService";
 
@@ -26,7 +26,7 @@ import ResumeBuilder from "./pages/AIAssistant/ResumeBuilder";
 import ResumeAnalyzer from "./pages/AIAssistant/ResumeAnalyzer";
 import MockInterview from "./pages/AIAssistant/MockInterview";
 import CareerGuide from "./pages/AIAssistant/CareerGuide";
-import AIToolAuthGate from "./components/ai/Aitoolgate";
+import AIToolAuthGate from "./components/ai/AIToolAuthGate";
 
 // ─── Admin Pages ─────────────────────────────────────────────────────────────
 import AdminLogin from "./pages/admin/login/AdminLogin";
@@ -37,7 +37,7 @@ import AdminCertificates from "./pages/admin/Certificates/Certificates";
 import AdminExperience from "./pages/admin/Experience/Experience";
 import AdminBlogs from "./pages/admin/Blogs/Blogs";
 import AdminMessages from "./pages/admin/Messages/Messages";
-import AdminAI from "./pages/admin/adminai/adminai";
+import AdminAI from "./pages/admin/AdminAI/AdminAI";
 import AdminAnalytics from "./pages/admin/Analytics/Analytics";
 import AdminSettings from "./pages/admin/Settings/Settings";
 import AdminUsers from "./pages/admin/Users/Users";
