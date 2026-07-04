@@ -424,21 +424,21 @@ function ProfileCircle({ src, alt }) {
    MAIN HERO COMPONENT
    ═══════════════════════════════════════════════════════════════ */
 export default function Hero() {
-  const [speaking, setSpeaking] = useState(false);
+  // const [speaking, setSpeaking] = useState(false);
   const [resumeOpen, setResumeOpen] = useState(false);
 
-  const handleSpeak = () => {
-    if (!("speechSynthesis" in window)) return;
-    window.speechSynthesis.cancel();
-    if (speaking) {
-      setSpeaking(false);
-      return;
-    }
-    const utter = new SpeechSynthesisUtterance(SUMMARY);
-    utter.onstart = () => setSpeaking(true);
-    utter.onend = () => setSpeaking(false);
-    window.speechSynthesis.speak(utter);
-  };
+  // const handleSpeak = () => {
+  //   if (!("speechSynthesis" in window)) return;
+  //   window.speechSynthesis.cancel();
+  //   if (speaking) {
+  //     setSpeaking(false);
+  //     return;
+  //   }
+  //   const utter = new SpeechSynthesisUtterance(SUMMARY);
+  //   utter.onstart = () => setSpeaking(true);
+  //   utter.onend = () => setSpeaking(false);
+  //   window.speechSynthesis.speak(utter);
+  // };
 
   return (
     <section className="relative min-h-screen w-full overflow-hidden bg-[#0A0A0A] text-[#FFFFFF] flex items-center font-[Inter]">

@@ -5,25 +5,22 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 
 // Contexts
-import { AuthProvider } from "./hooks/useAuth"; // ← CHANGED PATH
+import { AuthProvider } from "./hooks/useAuth";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { AIProvider } from "./contexts/AIContext";
 
 // Styles
-import"./styles/themes.css"
-import"./styles/globals.css"
-
-
-
+import "./styles/themes.css"
+import "./styles/globals.css"
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider>
         <AIProvider>
-          <AuthProvider> {/* ← ADDED */}
+          <AuthProvider>
             <App />
-          </AuthProvider> {/* ← ADDED */}
+          </AuthProvider>
         </AIProvider>
       </ThemeProvider>
     </BrowserRouter>
