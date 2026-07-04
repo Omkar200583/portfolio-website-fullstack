@@ -12,6 +12,9 @@ import { AIProvider } from "./contexts/AIContext";
 // Styles
 import "./styles/themes.css"
 import "./styles/globals.css"
+import "./styles/animations.css"
+import "./index.css";
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
