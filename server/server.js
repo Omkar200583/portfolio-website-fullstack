@@ -1,7 +1,6 @@
 // ✅ MUST be the absolute first line to load env vars before other imports
 import "dotenv/config";
 import path from "path";
-
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
@@ -25,31 +24,63 @@ import analyticsRoutes from "./routes/analyticsRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import speechRoutes from "./routes/speechRoutes.js";
 import aiOtpRoutes from "./routes/aiOtpRoutes.js";
-import adminRoutes from "./routes/adminRoutes.js"; 
+import adminRoutes from "./routes/adminRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 console.log("ENV CHECK:", {
   groq: process.env.GROQ_API_KEY ? "FOUND" : "MISSING",
-  mongo: process.env.MONGODB_URI ? "FOUND" : "MISSING"
+  mongo: process.env.MONGODB_URI ? "FOUND" : "MISSING",
 });
 
-// Connect to MongoDB
-connectDB();
+// -----------------------------
+// CORS CONFIG
+// -----------------------------
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:5174",
+  process.env.CLIENT_URL,
+].filter(Boolean);
 
-// Middleware
+const corsOptions = {
+  origin: function (origin, callback) {
+    // allow requests from Postman/curl or server-to-server
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    console.error(`❌ CORS blocked for origin: ${origin}`);
+    return callback(new Error(`Not allowed by CORS: ${origin}`));
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+// -----------------------------
+// MIDDLEWARE
+// -----------------------------
 app.use(helmet());
-app.use(cors({ origin: process.env.CLIENT_URL || "http://localhost:5173", credentials: true }));
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); // handle preflight
+
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
+
 app.use(morgan("dev"));
 app.use(requestLogger);
 
-// Static uploads
+// -----------------------------
+// STATIC FILES
+// -----------------------------
 app.use("/uploads", express.static("uploads"));
 
-// API Routes
+// -----------------------------
+// ROUTES
+// -----------------------------
 app.use("/api/auth", authRoutes);
 app.use("/api/projects", projectRoutes);
 app.use("/api/skills", skillRoutes);
@@ -64,13 +95,44 @@ app.use("/api/speech", speechRoutes);
 app.use("/api/ai-otp", aiOtpRoutes);
 app.use("/api/admin", adminRoutes);
 
-// Health check
-app.get("/api/health", (req, res) => res.json({ status: "ok", timestamp: new Date().toISOString() }));
+// -----------------------------
+// HEALTH CHECK
+// -----------------------------
+app.get("/api/health", (req, res) => {
+  res.json({
+    status: "ok",
+    timestamp: new Date().toISOString(),
+    allowedOrigins,
+  });
+});
 
-// Error Handling
+// -----------------------------
+// ERROR HANDLING
+// -----------------------------
 app.use(notFound);
 app.use(errorHandler);
 
-app.listen(PORT, () => logger.info(`Server running on port ${PORT}`));
+// -----------------------------
+// START SERVER ONLY AFTER DB CONNECTS
+// -----------------------------
+const startServer = async () => {
+  try {
+    await connectDB();
+    app.listen(PORT, () => {
+      logger.info(`Server running on port ${PORT}`);
+      console.log("CWD:", process.cwd());
+      console.log("ENV FILE CHECK:");
+      console.log("MONGODB:", process.env.MONGODB_URI ? "FOUND" : "MISSING");
+      console.log("GROQ:", process.env.GROQ_API_KEY ? "FOUND" : "MISSING");
+      console.log("CLIENT_URL:", process.env.CLIENT_URL || "not set");
+      console.log("ALLOWED ORIGINS:", allowedOrigins);
+    });
+  } catch (error) {
+    console.error("❌ Failed to start server:", error.message);
+    process.exit(1);
+  }
+};
+
+startServer();
 
 export default app;

@@ -1,7 +1,9 @@
 // ═══════════════════════════════════════════════════════════════
 //  ABOUT — Premium Black & Gold (Enhanced Animations)
+//  Location: src/pages/About/About.jsx
 // ═══════════════════════════════════════════════════════════════
 import React, { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { motion, useInView, useMotionValue, useTransform, useSpring } from "framer-motion";
 
 const STACK = [
@@ -118,7 +120,6 @@ function SkillTag({ name, level, index }) {
           e.currentTarget.style.boxShadow = "none";
         }}
       >
-        {/* Background fill bar */}
         <span
           className="absolute inset-0 rounded-full transition-all duration-1000 ease-out"
           style={{
@@ -126,7 +127,6 @@ function SkillTag({ name, level, index }) {
             width: isInView ? `${level}%` : "0%",
           }}
         />
-
         <span className="relative z-10 flex items-center gap-2">
           <span className="text-xs font-mono text-[#F0D060]">{name}</span>
           <span className="text-[10px] font-mono text-[#D4AF37]/50 tabular-nums">
@@ -169,14 +169,12 @@ function StatCard({ value, label, index }) {
           e.currentTarget.style.boxShadow = "none";
         }}
       >
-        {/* Hover glow line at top */}
         <span
           className="absolute top-0 left-1/2 -translate-x-1/2 h-[1px] transition-all duration-500 group-hover:w-full w-0"
           style={{
             background: "linear-gradient(90deg, transparent, #D4AF37, transparent)",
           }}
         />
-
         <div
           className="text-3xl sm:text-4xl font-display font-bold mb-1"
           style={{
@@ -234,7 +232,6 @@ export default function About() {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
-  /* Parallax glow offset on scroll */
   const scrollY = useMotionValue(0);
   const glowOffset = useTransform(scrollY, [0, 600], [0, -60]);
   const glowSpring = useSpring(glowOffset, { stiffness: 80, damping: 30 });
@@ -260,7 +257,6 @@ export default function About() {
     { delay: 1.0, x: 60, y: 88, size: 4, duration: 8, opacity: 0.3 },
   ];
 
-  /* Reveal text line by line */
   const revealLine = (delay = 0) => ({
     initial: { opacity: 0, y: 18, filter: "blur(6px)" },
     whileInView: { opacity: 1, y: 0, filter: "blur(0px)" },
@@ -276,7 +272,8 @@ export default function About() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative w-full overflow-hidden bg-[#0A0A0A] text-[#FFFFFF] min-h-screen flex items-center py-28 px-4 sm:px-6 font-[Inter]"
+      className="relative w-full overflow-hidden bg-[#0A0A0A] text-[#FFFFFF] min-h-screen flex items-center py-28 px-4 sm:px-6"
+      style={{ fontFamily: "'Inter', sans-serif" }}
     >
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
@@ -295,9 +292,9 @@ export default function About() {
         .glow-float-2 { animation: floatGlow2 18s ease-in-out infinite; }
 
         @keyframes particleFloat {
-          0%, 100% { transform: translateY(0) translateX(0) scale(1); opacity: var(--base-opacity, 0.4); }
+          0%, 100% { transform: translateY(0) translateX(0) scale(1); }
           25% { transform: translateY(-20px) translateX(8px) scale(1.2); }
-          50% { transform: translateY(-35px) translateX(-5px) scale(0.8); opacity: calc(var(--base-opacity, 0.4) * 0.5); }
+          50% { transform: translateY(-35px) translateX(-5px) scale(0.8); opacity: 0.2; }
           75% { transform: translateY(-15px) translateX(12px) scale(1.1); }
         }
 
@@ -317,7 +314,6 @@ export default function About() {
       {/* ── Background Layers ── */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#0A0A0A] via-[#111111] to-[#0D0D0D]" />
 
-      {/* Parallax glow blobs */}
       <motion.div
         className="absolute w-[560px] h-[560px] rounded-full bg-[#D4AF37]/[0.06] blur-[140px] glow-float"
         style={{ top: "-10%", right: "-5%", y: glowSpring }}
@@ -327,7 +323,6 @@ export default function About() {
         style={{ bottom: "-15%", left: "-10%", y: glowSpring }}
       />
 
-      {/* Subtle grid pattern */}
       <div
         className="absolute inset-0 grid-pulse"
         style={{
@@ -339,7 +334,6 @@ export default function About() {
         }}
       />
 
-      {/* Floating particles */}
       {particles.map((p, i) => (
         <Particle key={i} {...p} />
       ))}
@@ -397,7 +391,6 @@ export default function About() {
           transition={{ delay: 0.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="relative rounded-2xl overflow-hidden"
         >
-          {/* Animated border sweep */}
           <div
             className="absolute inset-0 rounded-2xl pointer-events-none"
             style={{
@@ -413,7 +406,6 @@ export default function About() {
             }}
           />
 
-          {/* Card background */}
           <div
             className="relative rounded-2xl p-8 md:p-12 border border-[#D4AF37]/10 bg-[#171717]/40 backdrop-blur-xl"
             style={{
@@ -421,13 +413,11 @@ export default function About() {
                 "0 20px 60px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(212,175,55,0.03)",
             }}
           >
-            {/* Corner accents */}
             <CornerAccent position="top-left" />
             <CornerAccent position="top-right" />
             <CornerAccent position="bottom-left" />
             <CornerAccent position="bottom-right" />
 
-            {/* Paragraph 1 */}
             <motion.p
               {...revealLine(0.35)}
               className="text-base sm:text-lg text-[#A3A3A3] leading-[1.8] mb-5"
@@ -443,7 +433,6 @@ export default function About() {
               production-grade software.
             </motion.p>
 
-            {/* Paragraph 2 */}
             <motion.p
               {...revealLine(0.45)}
               className="text-base sm:text-lg text-[#A3A3A3] leading-[1.8] mb-2"
@@ -459,7 +448,6 @@ export default function About() {
 
             <AnimatedDivider delay={0.6} />
 
-            {/* ── Stats Row ── */}
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -474,7 +462,6 @@ export default function About() {
 
             <AnimatedDivider delay={0.8} />
 
-            {/* ── Tech Stack ── */}
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -503,7 +490,7 @@ export default function About() {
 
             <AnimatedDivider delay={1.0} />
 
-            {/* ── CTA Buttons ── */}
+            {/* ✅ FIXED: Using Link from react-router-dom instead of href="#" */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -511,35 +498,36 @@ export default function About() {
               transition={{ delay: 0.9, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
               className="flex flex-wrap gap-4"
             >
-              <motion.a
-                href="#contact"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ duration: 0.25 }}
-                className="group relative px-7 py-3.5 rounded-xl bg-[#D4AF37] text-[#0A0A0A] font-display font-semibold text-sm overflow-hidden"
-              >
-                {/* Shine sweep on hover */}
-                <span
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{
-                    background:
-                      "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%)",
-                    backgroundSize: "200% 100%",
-                    animation: "borderSweep 1.5s linear infinite",
-                  }}
-                />
-                <span className="relative z-10">Get In Touch</span>
-              </motion.a>
+              <Link to="/contact">
+                <motion.span
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ duration: 0.25 }}
+                  className="group relative inline-block px-7 py-3.5 rounded-xl bg-[#D4AF37] text-[#0A0A0A] font-display font-semibold text-sm overflow-hidden cursor-pointer"
+                >
+                  <span
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{
+                      background:
+                        "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%)",
+                      backgroundSize: "200% 100%",
+                      animation: "borderSweep 1.5s linear infinite",
+                    }}
+                  />
+                  <span className="relative z-10">Get In Touch</span>
+                </motion.span>
+              </Link>
 
-              <motion.a
-                href="#projects"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ duration: 0.25 }}
-                className="px-7 py-3.5 rounded-xl border border-[#D4AF37]/15 bg-[#D4AF37]/[0.03] font-display font-semibold text-sm text-[#FFFFFF] hover:border-[#D4AF37]/50 hover:text-[#D4AF37] hover:bg-[#D4AF37]/[0.06] transition-all duration-300"
-              >
-                View Projects
-              </motion.a>
+              <Link to="/projects">
+                <motion.span
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ duration: 0.25 }}
+                  className="inline-block px-7 py-3.5 rounded-xl border border-[#D4AF37]/15 bg-[#D4AF37]/[0.03] font-display font-semibold text-sm text-[#FFFFFF] hover:border-[#D4AF37]/50 hover:text-[#D4AF37] hover:bg-[#D4AF37]/[0.06] transition-all duration-300 cursor-pointer"
+                >
+                  View Projects
+                </motion.span>
+              </Link>
             </motion.div>
           </div>
         </motion.div>

@@ -1,0 +1,703 @@
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE-FIRST RESPONSIVE CSS — iPhone 16 Optimized
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ───────── BREAKPOINTS ───────── */
+/* xs: 320px (iPhone SE)
+   sm: 640px (iPhone Plus)
+   md: 768px (iPad Mini)
+   lg: 1024px (iPad)
+   xl: 1280px (Desktop)
+   2xl: 1536px (Large Desktop) */
+
+/* ═══════════════════════════════════════════════════════════════
+   1. GLOBAL MOBILE OPTIMIZATIONS
+   ═══════════════════════════════════════════════════════════════ */
+
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+  overflow-x: hidden;
+  width: 100vw;
+  max-width: 100%;
+}
+
+/* Prevent horizontal scrolling */
+html, body, main, section, div {
+  max-width: 100%;
+}
+
+/* Fix viewport padding issues */
+body {
+  padding: 0;
+  margin: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   2. CONTAINER & LAYOUT
+   ═══════════════════════════════════════════════════════════════ */
+
+.container {
+  width: 100%;
+  padding: 0 16px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 0 24px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+    padding: 0 48px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+/* Remove default grid issues */
+.grid {
+  display: grid;
+  gap: 16px;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    gap: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    gap: 24px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   3. TYPOGRAPHY — MOBILE FIRST
+   ═══════════════════════════════════════════════════════════════ */
+
+h1 {
+  font-size: 32px;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+@media (min-width: 640px) {
+  h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  h1 {
+    font-size: 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  h1 {
+    font-size: 56px;
+    margin-bottom: 24px;
+  }
+}
+
+h2 {
+  font-size: 24px;
+  line-height: 1.3;
+  margin-bottom: 12px;
+}
+
+@media (min-width: 640px) {
+  h2 {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+}
+
+@media (min-width: 768px) {
+  h2 {
+    font-size: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+  }
+}
+
+h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+@media (min-width: 640px) {
+  h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+}
+
+@media (min-width: 1024px) {
+  h3 {
+    font-size: 24px;
+  }
+}
+
+p {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+@media (min-width: 640px) {
+  p {
+    font-size: 15px;
+    margin-bottom: 14px;
+  }
+}
+
+@media (min-width: 768px) {
+  p {
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   4. BUTTONS — MOBILE TOUCH FRIENDLY
+   ═══════════════════════════════════════════════════════════════ */
+
+button, .btn, input[type="button"], input[type="submit"] {
+  /* Minimum touch target: 44x44px */
+  min-height: 44px;
+  padding: 12px 20px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+@media (min-width: 640px) {
+  button, .btn {
+    padding: 14px 24px;
+    font-size: 15px;
+    min-height: 44px;
+  }
+}
+
+@media (min-width: 1024px) {
+  button, .btn {
+    padding: 16px 28px;
+    font-size: 16px;
+  }
+}
+
+/* Full-width buttons on mobile */
+.btn-full {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .btn-full {
+    width: auto;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   5. FORMS — MOBILE OPTIMIZED
+   ═══════════════════════════════════════════════════════════════ */
+
+input, textarea, select {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  background: rgba(10, 10, 10, 0.5);
+  color: #FFFFFF;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  min-height: 44px;
+}
+
+@media (min-width: 640px) {
+  input, textarea, select {
+    padding: 14px 16px;
+  }
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: rgba(212, 175, 55, 0.5);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+  outline: none;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+@media (min-width: 640px) {
+  textarea {
+    min-height: 140px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   6. IMAGES — RESPONSIVE
+   ═══════════════════════════════════════════════════════════════ */
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* Aspect ratio containers */
+.aspect-square {
+  aspect-ratio: 1;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.aspect-video {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.aspect-portrait {
+  aspect-ratio: 9 / 16;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   7. CARDS & SECTIONS — STACKING
+   ═══════════════════════════════════════════════════════════════ */
+
+.card {
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .card {
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .card {
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+}
+
+/* Section padding adjustments */
+section {
+  padding: 32px 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  section {
+    padding: 40px 24px;
+  }
+}
+
+@media (min-width: 768px) {
+  section {
+    padding: 48px 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  section {
+    padding: 64px 48px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   8. NAVBAR — MOBILE RESPONSIVE
+   ═══════════════════════════════════════════════════════════════ */
+
+nav {
+  width: 100%;
+  padding: 12px 16px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  nav {
+    padding: 14px 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  nav {
+    padding: 16px 48px;
+  }
+}
+
+nav .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Logo sizing */
+nav .logo {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+@media (min-width: 640px) {
+  nav .logo {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1024px) {
+  nav .logo {
+    font-size: 20px;
+  }
+}
+
+/* Hide desktop menu on mobile */
+nav .desktop-menu {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  nav .desktop-menu {
+    display: flex;
+  }
+}
+
+/* Mobile menu button */
+nav .mobile-menu-btn {
+  display: block;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 8px;
+}
+
+@media (min-width: 1024px) {
+  nav .mobile-menu-btn {
+    display: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   9. FOOTER — MOBILE STACKING
+   ═══════════════════════════════════════════════════════════════ */
+
+footer {
+  padding: 32px 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  footer {
+    padding: 40px 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  footer {
+    padding: 48px 48px;
+  }
+}
+
+/* Stack footer columns on mobile */
+footer .grid {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  footer .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  footer .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+footer h3 {
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+@media (min-width: 640px) {
+  footer h3 {
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   10. RESPONSIVE GRID LAYOUTS
+   ═══════════════════════════════════════════════════════════════ */
+
+/* 1 column on mobile, 2 on tablet, 3+ on desktop */
+.grid-auto {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .grid-auto {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-auto {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   11. FLEXBOX — MOBILE WRAPPING
+   ═══════════════════════════════════════════════════════════════ */
+
+.flex-mobile-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (min-width: 640px) {
+  .flex-mobile-stack {
+    flex-direction: row;
+    gap: 16px;
+  }
+}
+
+.flex-mobile-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+@media (min-width: 640px) {
+  .flex-mobile-wrap {
+    gap: 16px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   12. SPACING UTILITIES — MOBILE FIRST
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Margin adjustments */
+.mb-mobile-4 { margin-bottom: 16px; }
+.mb-mobile-6 { margin-bottom: 24px; }
+.mb-mobile-8 { margin-bottom: 32px; }
+
+@media (min-width: 640px) {
+  .mb-mobile-4 { margin-bottom: 24px; }
+  .mb-mobile-6 { margin-bottom: 32px; }
+  .mb-mobile-8 { margin-bottom: 48px; }
+}
+
+/* Padding adjustments */
+.px-mobile-4 { padding-left: 16px; padding-right: 16px; }
+.py-mobile-4 { padding-top: 16px; padding-bottom: 16px; }
+
+@media (min-width: 640px) {
+  .px-mobile-4 { padding-left: 24px; padding-right: 24px; }
+  .py-mobile-4 { padding-top: 20px; padding-bottom: 20px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   13. SCROLLBAR — HIDDEN ON MOBILE
+   ═══════════════════════════════════════════════════════════════ */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.2);
+  border-radius: 3px;
+}
+
+/* Hide scrollbar on mobile, show on desktop */
+.no-scrollbar-mobile {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar-mobile::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .no-scrollbar-mobile {
+    scrollbar-width: auto;
+    -ms-overflow-style: auto;
+  }
+
+  .no-scrollbar-mobile::-webkit-scrollbar {
+    display: block;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   14. OVERFLOW & WIDTH FIXES
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Prevent text overflow */
+body, html, main {
+  overflow-x: hidden;
+}
+
+/* Ensure all text fits */
+p, span, a, label, h1, h2, h3, h4, h5, h6 {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Fix modal overflow */
+.modal-content {
+  width: 100%;
+  max-width: 100%;
+  max-height: 90vh;
+  box-sizing: border-box;
+  padding: 16px;
+}
+
+@media (min-width: 640px) {
+  .modal-content {
+    max-width: 500px;
+    padding: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .modal-content {
+    max-width: 600px;
+    padding: 32px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   15. SAFE AREA (iPhone notch, dynamic island)
+   ═══════════════════════════════════════════════════════════════ */
+
+body {
+  padding-top: max(0px, env(safe-area-inset-top));
+  padding-bottom: max(0px, env(safe-area-inset-bottom));
+  padding-left: max(0px, env(safe-area-inset-left));
+  padding-right: max(0px, env(safe-area-inset-right));
+}
+
+/* Fix navbar safe area */
+nav {
+  padding-top: max(12px, env(safe-area-inset-top, 12px));
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   16. TOUCH FRIENDLY INTERACTIONS
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (hover: none) and (pointer: coarse) {
+  /* Mobile devices */
+  button:active, .btn:active, a:active {
+    opacity: 0.85;
+    transform: scale(0.98);
+  }
+
+  /* Remove hover effects on touch devices */
+  button:hover, .btn:hover, a:hover {
+    opacity: 1;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  /* Desktop with mouse */
+  button:hover, .btn:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   17. PRINT STYLES (Bonus)
+   ═══════════════════════════════════════════════════════════════ */
+
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+
+  nav, footer {
+    display: none;
+  }
+
+  section {
+    page-break-inside: avoid;
+    padding: 0;
+  }
+}

@@ -86,3 +86,43 @@
 [2026-06-21 18:43:38] [31merror[39m: Unexpected field - /api/experience - POST - ::1
 [2026-06-25 19:50:54] [31merror[39m: Not found - /api/todos - /api/todos - GET - ::1
 [2026-06-25 23:30:40] [31merror[39m: Request Timeout - /api/blog - POST - ::1
+[2026-07-01 13:55:13] [31merror[39m: Not found - /api/analytics/track - /api/analytics/track - POST - ::1
+[2026-07-01 13:55:14] [31merror[39m: Not found - /api/blog?status=published&limit=20 - /api/blog?status=published&limit=20 - GET - ::1
+[2026-07-01 13:55:14] [31merror[39m: Not found - /api/blog?status=published&limit=20 - /api/blog?status=published&limit=20 - GET - ::1
+[2026-07-01 13:55:17] [31merror[39m: Not found - /api/analytics/track - /api/analytics/track - POST - ::1
+[2026-07-01 13:55:17] [31merror[39m: Not found - /api/blog?status=published&limit=20 - /api/blog?status=published&limit=20 - GET - ::1
+[2026-07-01 13:55:17] [31merror[39m: Not found - /api/blog?status=published&limit=20 - /api/blog?status=published&limit=20 - GET - ::1
+[2026-07-01 13:55:34] [31merror[39m: Not found - /api/analytics/track - /api/analytics/track - POST - ::1
+[2026-07-01 13:55:34] [31merror[39m: Not found - /api/skills - /api/skills - GET - ::1
+[2026-07-01 13:55:34] [31merror[39m: Not found - /api/skills - /api/skills - GET - ::1
+[2026-07-01 13:55:34] [31merror[39m: Not found - /api/projects?limit=50 - /api/projects?limit=50 - GET - ::1
+[2026-07-01 13:55:34] [31merror[39m: Not found - /api/experience - /api/experience - GET - ::1
+[2026-07-01 13:55:34] [31merror[39m: Not found - /api/projects?limit=50 - /api/projects?limit=50 - GET - ::1
+[2026-07-01 13:55:34] [31merror[39m: Not found - /api/experience - /api/experience - GET - ::1
+[2026-07-01 13:55:37] [31merror[39m: Not found - /api/blog?status=published&limit=20 - /api/blog?status=published&limit=20 - GET - ::1
+[2026-07-01 13:55:37] [31merror[39m: Not found - /api/blog?status=published&limit=20 - /api/blog?status=published&limit=20 - GET - ::1
+[2026-07-01 13:55:39] [31merror[39m: Not found - /api/analytics/track - /api/analytics/track - POST - ::1
+[2026-07-01 13:55:39] [31merror[39m: Not found - /api/blog?status=published&limit=20 - /api/blog?status=published&limit=20 - GET - ::1
+[2026-07-01 13:55:39] [31merror[39m: Not found - /api/blog?status=published&limit=20 - /api/blog?status=published&limit=20 - GET - ::1
+[2026-07-01 13:56:53] [31merror[39m: Not found - /api/analytics/track - /api/analytics/track - POST - ::1
+[2026-07-01 13:56:53] [31merror[39m: Not found - /api/blog?status=published&limit=20 - /api/blog?status=published&limit=20 - GET - ::1
+[2026-07-01 13:56:54] [31merror[39m: Not found - /api/blog?status=published&limit=20 - /api/blog?status=published&limit=20 - GET - ::1
+[2026-07-01 13:56:58] [31merror[39m: Not found - /api/analytics/track - /api/analytics/track - POST - ::1
+[2026-07-01 13:57:05] [31merror[39m: Not found - /api/blog?status=published&limit=20 - /api/blog?status=published&limit=20 - GET - ::1
+[2026-07-01 13:57:05] [31merror[39m: Not found - /api/blog?status=published&limit=20 - /api/blog?status=published&limit=20 - GET - ::1
+[2026-07-01 13:58:18] [31merror[39m: Not found - /api/analytics/track - /api/analytics/track - POST - ::1
+[2026-07-01 13:58:18] [31merror[39m: Not found - /api/blog?status=published&limit=20 - /api/blog?status=published&limit=20 - GET - ::1
+[2026-07-01 13:58:18] [31merror[39m: Not found - /api/blog?status=published&limit=20 - /api/blog?status=published&limit=20 - GET - ::1
+[2026-07-01 14:05:49] [31merror[39m: Not found - /api/analytics/track - /api/analytics/track - POST - ::1
+[2026-07-01 14:05:49] [31merror[39m: Not found - /api/blog?status=published&limit=20 - /api/blog?status=published&limit=20 - GET - ::1
+[2026-07-01 14:05:49] [31merror[39m: Not found - /api/blog?status=published&limit=20 - /api/blog?status=published&limit=20 - GET - ::1
+[2026-07-01 14:12:10] [31merror[39m: MongoDB connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+[2026-07-01 14:33:07] [31merror[39m: MongoDB connection error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.vx9qsfa.mongodb.net
+[2026-07-01 14:33:52] [31merror[39m: MongoDB connection error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.vx9qsfa.mongodb.net
+[2026-07-01 14:33:54] [31merror[39m: MongoDB connection error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.vx9qsfa.mongodb.net
+[2026-07-01 14:34:20] [31merror[39m: MongoDB connection error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.vx9qsfa.mongodb.net
+[2026-07-01 14:35:51] [31merror[39m: MongoDB connection error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.vx9qsfa.mongodb.net
+[2026-07-01 14:40:18] [31merror[39m: MongoDB connection error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.vx9qsfa.mongodb.net
+[2026-07-01 14:47:13] [31merror[39m: MongoDB connection error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.vx9qsfa.mongodb.net
+[2026-07-04 10:07:53] [31merror[39m: MongoDB connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+[2026-07-04 10:08:49] [31merror[39m: MongoDB connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/

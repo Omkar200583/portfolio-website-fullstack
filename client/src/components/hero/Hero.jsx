@@ -541,7 +541,7 @@ export default function Hero() {
               Download Resume
             </motion.button>
 
-            <motion.button
+            {/* <motion.button
               onClick={handleSpeak}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}
@@ -554,7 +554,9 @@ export default function Hero() {
                 <Volume2 size={16} />
               )}
               {speaking ? "Stop" : "Listen Intro"}
-            </motion.button>
+            </motion.button> */}
+
+
           </motion.div>
 
           {/* Social links */}
