@@ -15,6 +15,8 @@
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.6.1",
     "@react-three/postprocessing": "^3.0.4",
+    "@tsparticles/react": "^4.3.1",
+    "@tsparticles/slim": "^4.3.1",
     "@types/three": "^0.184.1",
     "aos": "^2.3.4",
     "axios": "^1.17.0",
@@ -41,12 +43,10 @@
     "react-scroll": "^1.9.3",
     "react-scroll-parallax": "^3.5.0",
     "react-toastify": "^11.1.0",
-    "react-tsparticles": "^2.12.2",
     "react-type-animation": "^3.2.0",
     "socket.io-client": "^4.8.3",
     "swiper": "^14.0.1",
-    "three": "^0.170.0",
-    "tsparticles": "^4.3.1"
+    "three": "^0.170.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
