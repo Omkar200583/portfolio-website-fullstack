@@ -29,7 +29,7 @@ import CareerGuide from "./pages/AIAssistant/CareerGuide";
 import AIToolAuthGate from "./components/ai/AIToolAuthGate";
 
 // ─── Admin Pages ─────────────────────────────────────────────────────────────
-import AdminLogin from "./pages/admin/login/AdminLogin";
+import AdminLogin from "./pages/admin/login/AdminLogin.jsx";
 import AdminDashboard from "./pages/admin/Dashboard/Dashboard";
 import AdminProjects from "./pages/admin/Projects/Projects";
 import AdminSkills from "./pages/admin/Skills/Skills";
