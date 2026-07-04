@@ -6,8 +6,8 @@ import { Outlet } from "react-router-dom";
 import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
 import { ArrowUp } from "lucide-react";
 
-import Navbar from "../components/navbar/Navbar";
-import Footer from "../components/footer/Footer";
+import Navbar from "../components/Navbar/Navbar";
+import Footer from "../components/Footer/Footer";
 import AIAssistant from "../pages/AIAssistant/AIAssistant";
 
 import "../index.css";
