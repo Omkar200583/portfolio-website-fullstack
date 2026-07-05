@@ -1,6 +1,4 @@
-// ✅ MUST be the absolute first line to load env vars before other imports
 import "dotenv/config";
-import path from "path";
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
@@ -29,11 +27,6 @@ import adminRoutes from "./routes/adminRoutes.js";
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-console.log("ENV CHECK:", {
-  groq: process.env.GROQ_API_KEY ? "FOUND" : "MISSING",
-  mongo: process.env.MONGODB_URI ? "FOUND" : "MISSING",
-});
-
 // -----------------------------
 // CORS CONFIG
 // -----------------------------
@@ -44,15 +37,15 @@ const allowedOrigins = [
 ].filter(Boolean);
 
 const corsOptions = {
-  origin: function (origin, callback) {
-    // allow requests from Postman/curl or server-to-server
+  origin(origin, callback) {
+    // Postman / server-to-server requests
     if (!origin) return callback(null, true);
 
     if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
 
-    console.error(`❌ CORS blocked for origin: ${origin}`);
+    console.error("CORS blocked for origin:", origin);
     return callback(new Error(`Not allowed by CORS: ${origin}`));
   },
   credentials: true,
@@ -65,7 +58,7 @@ const corsOptions = {
 // -----------------------------
 app.use(helmet());
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions)); // handle preflight
+app.options("*", cors(corsOptions));
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
@@ -101,7 +94,8 @@ app.use("/api/admin", adminRoutes);
 app.get("/api/health", (req, res) => {
   res.json({
     status: "ok",
-    timestamp: new Date().toISOString(),
+    env: process.env.NODE_ENV,
+    clientUrl: process.env.CLIENT_URL,
     allowedOrigins,
   });
 });
@@ -113,22 +107,20 @@ app.use(notFound);
 app.use(errorHandler);
 
 // -----------------------------
-// START SERVER ONLY AFTER DB CONNECTS
+// START SERVER
 // -----------------------------
 const startServer = async () => {
   try {
     await connectDB();
+
     app.listen(PORT, () => {
       logger.info(`Server running on port ${PORT}`);
-      console.log("CWD:", process.cwd());
-      console.log("ENV FILE CHECK:");
-      console.log("MONGODB:", process.env.MONGODB_URI ? "FOUND" : "MISSING");
-      console.log("GROQ:", process.env.GROQ_API_KEY ? "FOUND" : "MISSING");
-      console.log("CLIENT_URL:", process.env.CLIENT_URL || "not set");
-      console.log("ALLOWED ORIGINS:", allowedOrigins);
+      console.log("NODE_ENV:", process.env.NODE_ENV);
+      console.log("CLIENT_URL:", process.env.CLIENT_URL);
+      console.log("ALLOWED_ORIGINS:", allowedOrigins);
     });
   } catch (error) {
-    console.error("❌ Failed to start server:", error.message);
+    console.error("Failed to start server:", error.message);
     process.exit(1);
   }
 };
