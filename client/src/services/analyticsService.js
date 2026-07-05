@@ -1,12 +1,14 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// analyticsService.js  — REAL API with mock fallback ONLY for dev
+// analyticsService.js — REAL API with mock fallback ONLY for dev
 // ─────────────────────────────────────────────────────────────────────────────
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const API_BASE = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL}/api`
+  : "https://portfolio-backend-vh57.onrender.com/api";
 
 // Set to "mock" ONLY during UI development without a running backend
-// Set to "api" when backend is running — this is the REAL mode
-let currentMethod = "api";
+// Set to "api" when backend is running
+const currentMethod = "api";
 
 const API_ENDPOINTS = {
   dashboard: `${API_BASE}/analytics/dashboard`,
@@ -24,6 +26,7 @@ const apiMethods = {
       credentials: "include",
       headers: { "Content-Type": "application/json" },
     });
+
     if (!res.ok) throw new Error(`Dashboard API ${res.status}`);
     return res.json();
   },
@@ -34,7 +37,9 @@ const apiMethods = {
       credentials: "include",
       headers: { "Content-Type": "application/json" },
     });
+
     if (!res.ok) throw new Error(`Overview API ${res.status}`);
+
     const json = await res.json();
     return { data: json.data?.stats || json.stats || {} };
   },
@@ -45,6 +50,7 @@ const apiMethods = {
       credentials: "include",
       headers: { "Content-Type": "application/json" },
     });
+
     if (!res.ok) throw new Error(`Traffic API ${res.status}`);
     return res.json();
   },
@@ -55,6 +61,7 @@ const apiMethods = {
       credentials: "include",
       headers: { "Content-Type": "application/json" },
     });
+
     if (!res.ok) throw new Error(`Activity API ${res.status}`);
     return res.json();
   },
@@ -75,12 +82,20 @@ const mockMethods = {
     await new Promise((r) => setTimeout(r, 400));
     return {
       data: {
-        stats: { totalProjects: 0, totalBlogs: 0, totalContacts: 0, unreadContacts: 0, totalInterviews: 0, recentVisits: 0 },
+        stats: {
+          totalProjects: 0,
+          totalBlogs: 0,
+          totalContacts: 0,
+          unreadContacts: 0,
+          totalInterviews: 0,
+          recentVisits: 0,
+        },
         pageViews: [],
         dailyVisits: [],
       },
     };
   },
+
   getOverview: async () => ({ data: {} }),
   getTrafficSources: async () => ({ data: [] }),
   getActivity: async () => ({ data: [] }),
@@ -111,7 +126,7 @@ export const trackEvent = (eventName, path = "", metadata = {}) => {
   if (currentMethod === "api") {
     methods.trackEvent(eventName, path, metadata);
   } else {
-    console.log("[Mock] Event:", eventName, path);
+    console.log("[Mock] Event:", eventName, path, metadata);
   }
 };
 
