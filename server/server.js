@@ -23,114 +23,347 @@ import userRoutes from "./routes/userRoutes.js";
 import speechRoutes from "./routes/speechRoutes.js";
 import aiOtpRoutes from "./routes/aiOtpRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
-import statsRoutes from "./routes/statsRoutes.js"; // Import the stats routes
+import statsRoutes from "./routes/statsRoutes.js";
+
 
 const app = express();
+
 const PORT = process.env.PORT || 5000;
 
-// -----------------------------
-// CORS CONFIG
-// -----------------------------
-// -----------------------------
-// CORS CONFIG
-// -----------------------------
+
+// =====================================
+// CORS CONFIGURATION
+// =====================================
+
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:5174",
   "http://127.0.0.1:5500",
-  process.env.CLIENT_URL,
+
+  // Vercel Frontend
+  "https://portfolio-website-fullstack-mu.vercel.app",
+
+  process.env.CLIENT_URL
 ].filter(Boolean);
 
-const corsOptions = {
-  origin(origin, callback) {
-    // Postman / server-to-server requests
-    if (!origin) return callback(null, true);
 
-    if (allowedOrigins.includes(origin)) {
+
+const corsOptions = {
+
+  origin: (origin, callback) => {
+
+    // Allow Postman, mobile apps, backend requests
+    if (!origin) {
       return callback(null, true);
     }
 
-    console.error("CORS blocked for origin:", origin);
-    return callback(new Error(`Not allowed by CORS: ${origin}`));
+
+    if (allowedOrigins.includes(origin)) {
+
+      return callback(null, true);
+
+    }
+
+
+    console.error(
+      "❌ CORS blocked origin:",
+      origin
+    );
+
+
+    return callback(
+      new Error(
+        `CORS blocked: ${origin}`
+      )
+    );
+
   },
+
+
   credentials: true,
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
+
+
+  methods: [
+    "GET",
+    "POST",
+    "PUT",
+    "PATCH",
+    "DELETE",
+    "OPTIONS"
+  ],
+
+
+  allowedHeaders: [
+    "Content-Type",
+    "Authorization"
+  ]
+
 };
 
-// -----------------------------
+
+
+
+// =====================================
 // MIDDLEWARE
-// -----------------------------
-app.use(helmet());
+// =====================================
+
+
+app.use(
+  helmet({
+    crossOriginResourcePolicy: false
+  })
+);
+
+
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
 
-app.use(express.json({ limit: "50mb" }));
-app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
-app.use(morgan("dev"));
+// Preflight requests
+app.options(
+  "*",
+  cors(corsOptions)
+);
+
+
+
+app.use(
+  express.json({
+    limit:"50mb"
+  })
+);
+
+
+app.use(
+  express.urlencoded({
+    extended:true,
+    limit:"50mb"
+  })
+);
+
+
+
+app.use(
+  morgan("dev")
+);
+
+
 app.use(requestLogger);
 
-// -----------------------------
+
+
+
+// =====================================
 // STATIC FILES
-// -----------------------------
-app.use("/uploads", express.static("uploads"));
+// =====================================
 
-// -----------------------------
-// ROUTES
-// -----------------------------
-app.use("/api/auth", authRoutes);
-app.use("/api/projects", projectRoutes);
-app.use("/api/skills", skillRoutes);
-app.use("/api/blog", blogRoutes);
-app.use("/api/certificates", certificateRoutes);
-app.use("/api/experience", experienceRoutes);
-app.use("/api/contact", contactRoutes);
-app.use("/api/ai", aiRoutes);
-app.use("/api/analytics", analyticsRoutes);
-app.use("/api/users", userRoutes);
-app.use("/api/speech", speechRoutes);
-app.use("/api/ai-otp", aiOtpRoutes);
-app.use("/api/admin", adminRoutes);
-app.use("/api/stats", statsRoutes); // Use the stats routes
+app.use(
+  "/uploads",
+  express.static("uploads")
+);
 
-// -----------------------------
+
+
+
+// =====================================
+// API ROUTES
+// =====================================
+
+
+app.use(
+  "/api/auth",
+  authRoutes
+);
+
+
+app.use(
+  "/api/projects",
+  projectRoutes
+);
+
+
+app.use(
+  "/api/skills",
+  skillRoutes
+);
+
+
+app.use(
+  "/api/blog",
+  blogRoutes
+);
+
+
+app.use(
+  "/api/certificates",
+  certificateRoutes
+);
+
+
+app.use(
+  "/api/experience",
+  experienceRoutes
+);
+
+
+app.use(
+  "/api/contact",
+  contactRoutes
+);
+
+
+app.use(
+  "/api/ai",
+  aiRoutes
+);
+
+
+app.use(
+  "/api/analytics",
+  analyticsRoutes
+);
+
+
+app.use(
+  "/api/users",
+  userRoutes
+);
+
+
+app.use(
+  "/api/speech",
+  speechRoutes
+);
+
+
+app.use(
+  "/api/ai-otp",
+  aiOtpRoutes
+);
+
+
+app.use(
+  "/api/admin",
+  adminRoutes
+);
+
+
+app.use(
+  "/api/stats",
+  statsRoutes
+);
+
+
+
+
+// =====================================
 // HEALTH CHECK
-// -----------------------------
-app.get("/api/health", (req, res) => {
-  res.json({
-    status: "ok",
-    env: process.env.NODE_ENV,
-    clientUrl: process.env.CLIENT_URL,
-    allowedOrigins,
-  });
-});
+// =====================================
 
-// -----------------------------
+
+app.get(
+  "/api/health",
+  (req,res)=>{
+
+    res.json({
+
+      status:"ok",
+
+      environment:
+      process.env.NODE_ENV,
+
+      clientUrl:
+      process.env.CLIENT_URL,
+
+      allowedOrigins
+
+    });
+
+  }
+);
+
+
+
+
+// =====================================
 // ERROR HANDLING
-// -----------------------------
-app.use(notFound);
-app.use(errorHandler);
+// =====================================
 
-// -----------------------------
+
+app.use(
+  notFound
+);
+
+
+app.use(
+  errorHandler
+);
+
+
+
+
+// =====================================
 // START SERVER
-// -----------------------------
-const startServer = async () => {
-  try {
+// =====================================
+
+
+const startServer = async()=>{
+
+  try{
+
+
     await connectDB();
 
-    app.listen(PORT, () => {
-      logger.info(`Server running on port ${PORT}`);
-      console.log("NODE_ENV:", process.env.NODE_ENV);
-      console.log("CLIENT_URL:", process.env.CLIENT_URL);
-      console.log("ALLOWED_ORIGINS:", allowedOrigins);
-    });
-  } catch (error) {
-    console.error("Failed to start server:", error.message);
-    process.exit(1);
+
+    app.listen(
+      PORT,
+      ()=>{
+
+        logger.info(
+          `Server running on port ${PORT}`
+        );
+
+
+        console.log(
+          "NODE_ENV:",
+          process.env.NODE_ENV
+        );
+
+
+        console.log(
+          "CLIENT_URL:",
+          process.env.CLIENT_URL
+        );
+
+
+        console.log(
+          "ALLOWED ORIGINS:",
+          allowedOrigins
+        );
+
+
+      }
+    );
+
+
   }
+  catch(error){
+
+
+    console.error(
+      "Server startup failed:",
+      error.message
+    );
+
+
+    process.exit(1);
+
+  }
+
 };
 
+
+
 startServer();
+
 
 export default app;
