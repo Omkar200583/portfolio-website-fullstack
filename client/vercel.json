@@ -5,7 +5,7 @@
       "destination": "https://portfolio-backend-vh57.onrender.com/api/$1"
     },
     {
-      "source": "/(.*)",
+      "source": "/((?!.*\\.(?:pdf|png|jpg|jpeg|svg|ico|css|js|json|webp|woff|woff2)$).*)",
       "destination": "/index.html"
     }
   ]
