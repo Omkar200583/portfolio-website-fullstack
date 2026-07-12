@@ -74,9 +74,7 @@ export default function AIChatWidget() {
 
       setMessages((prev) =>
         prev.map((msg) =>
-          msg.id === aiId
-            ? { ...msg, content: reply, streaming: false }
-            : msg
+          msg.id === aiId ? { ...msg, content: reply, streaming: false } : msg
         )
       );
     } catch (err) {
@@ -100,7 +98,6 @@ export default function AIChatWidget() {
     <div className="fixed bottom-6 right-6 z-[9999] flex flex-col items-end">
       {open && (
         <div className="mb-4 flex flex-col w-[340px] sm:w-[360px] max-w-[calc(100vw-24px)] h-[500px] sm:h-[540px] max-h-[75vh] rounded-2xl border border-yellow-500/20 bg-[#101010]/95 backdrop-blur-xl shadow-2xl overflow-hidden">
-
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-yellow-500/10">
             <div className="flex items-center gap-3">
@@ -129,10 +126,7 @@ export default function AIChatWidget() {
               const isUser = msg.role === "user";
 
               return (
-                <div
-                  key={msg.id}
-                  className={`flex gap-2 ${isUser ? "justify-end" : ""}`}
-                >
+                <div key={msg.id} className={`flex gap-2 ${isUser ? "justify-end" : ""}`}>
                   {!isUser && (
                     <div className="w-8 h-8 rounded-full bg-yellow-500 flex items-center justify-center shrink-0">
                       <Bot className="w-4 h-4 text-black" />
@@ -149,9 +143,7 @@ export default function AIChatWidget() {
                     {msg.streaming ? (
                       <Loader2 className="w-4 h-4 animate-spin" />
                     ) : (
-                      <div className="whitespace-pre-wrap break-words">
-                        {msg.content}
-                      </div>
+                      <div className="whitespace-pre-wrap break-words">{msg.content}</div>
                     )}
                   </div>
 
@@ -168,10 +160,7 @@ export default function AIChatWidget() {
           </div>
 
           {/* Input */}
-          <form
-            onSubmit={handleSend}
-            className="flex gap-2 p-3 border-t border-yellow-500/10"
-          >
+          <form onSubmit={handleSend} className="flex gap-2 p-3 border-t border-yellow-500/10">
             <input
               ref={inputRef}
               value={input}
