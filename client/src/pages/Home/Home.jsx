@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════════════
-//  HOME — Perfect Bottom Scrolling & Transitions
+//  HOME — Mobile Responsive Fixes Applied
 // ═══════════════════════════════════════════════════════════════
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
@@ -24,13 +24,16 @@ function SectionTransition({
   const isInView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
+    // FIX: overflow-x-hidden as a per-section safety net so any absolutely
+    // positioned glow/chip inside a child section can't create horizontal
+    // scroll on mobile.
     <section
       id={id}
       ref={ref}
-      className={`relative w-full ${className}`}
-      style={{ 
-        paddingBottom: isLast ? "120px" : undefined, // Extra space before footer
-        marginBottom: isLast ? "-24px" : undefined 
+      className={`relative w-full overflow-x-hidden ${className}`}
+      style={{
+        paddingBottom: isLast ? "80px" : undefined, // Extra space before footer (reduced for mobile)
+        marginBottom: isLast ? "-24px" : undefined,
       }}
     >
       {/* Alternate background tint */}
@@ -55,10 +58,10 @@ function SectionTransition({
 
       {/* Content with reveal */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }} // Reduced from 40 to 30 for snappier feel
+        initial={{ opacity: 0, y: 30 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
         transition={{
-          duration: 0.6, // Slightly faster
+          duration: 0.6,
           delay: delay + 0.1,
           ease: [0.22, 1, 0.36, 1],
         }}
@@ -67,9 +70,9 @@ function SectionTransition({
         {children}
       </motion.div>
 
-      {/* Scroll-triggered corner glow */}
+      {/* Scroll-triggered corner glow — smaller on mobile */}
       <motion.div
-        className="absolute -top-20 -right-20 w-40 h-40 rounded-full pointer-events-none"
+        className="absolute -top-20 -right-20 w-24 h-24 sm:w-40 sm:h-40 rounded-full pointer-events-none"
         style={{
           background: "radial-gradient(circle, rgba(212,175,55,0.08), transparent 70%)",
           filter: "blur(20px)",
@@ -85,16 +88,17 @@ function SectionTransition({
 /* ─── Home Page ─── */
 const Home = () => {
   return (
-    <div className="bg-[#0A0A0A] text-[#FFFFFF]">
+    // FIX: global overflow-x-hidden safety net at the page root
+    <div className="bg-[#0A0A0A] text-[#FFFFFF] overflow-x-hidden">
       {/* Hero — no wrapper, it has its own min-h-screen */}
       <section id="home" className="relative w-full min-h-screen">
         <Hero />
       </section>
 
-      {/* About */}
+      {/* About — reduced horizontal/vertical padding on mobile */}
       <SectionTransition
         id="about"
-        className="py-24 px-6 md:px-16"
+        className="py-14 sm:py-20 md:py-24 px-4 sm:px-8 md:px-16"
         delay={0}
       >
         <About />
@@ -103,7 +107,7 @@ const Home = () => {
       {/* Skills — alternate bg */}
       <SectionTransition
         id="skills"
-        className="py-24 px-6 md:px-16"
+        className="py-14 sm:py-20 md:py-24 px-4 sm:px-8 md:px-16"
         delay={0.05}
         alternateBg
       >
@@ -113,7 +117,7 @@ const Home = () => {
       {/* Projects */}
       <SectionTransition
         id="projects"
-        className="py-24 px-6 md:px-16"
+        className="py-14 sm:py-20 md:py-24 px-4 sm:px-8 md:px-16"
         delay={0.05}
       >
         <Projects />
@@ -122,7 +126,7 @@ const Home = () => {
       {/* Experience — alternate bg */}
       <SectionTransition
         id="experience"
-        className="py-24 px-6 md:px-16"
+        className="py-14 sm:py-20 md:py-24 px-4 sm:px-8 md:px-16"
         delay={0.05}
         alternateBg
       >
@@ -132,9 +136,9 @@ const Home = () => {
       {/* Contact — isLast adds extra bottom spacing */}
       <SectionTransition
         id="contact"
-        className="py-24 px-6 md:px-16"
+        className="py-14 sm:py-20 md:py-24 px-4 sm:px-8 md:px-16"
         delay={0.05}
-        isLast={true} 
+        isLast={true}
       >
         <Contact />
       </SectionTransition>

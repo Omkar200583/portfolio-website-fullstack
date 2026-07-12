@@ -23,6 +23,7 @@ import userRoutes from "./routes/userRoutes.js";
 import speechRoutes from "./routes/speechRoutes.js";
 import aiOtpRoutes from "./routes/aiOtpRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
+import statsRoutes from "./routes/statsRoutes.js"; // Import the stats routes
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -30,9 +31,13 @@ const PORT = process.env.PORT || 5000;
 // -----------------------------
 // CORS CONFIG
 // -----------------------------
+// -----------------------------
+// CORS CONFIG
+// -----------------------------
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:5174",
+  "http://127.0.0.1:5500",
   process.env.CLIENT_URL,
 ].filter(Boolean);
 
@@ -87,6 +92,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/speech", speechRoutes);
 app.use("/api/ai-otp", aiOtpRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/stats", statsRoutes); // Use the stats routes
 
 // -----------------------------
 // HEALTH CHECK

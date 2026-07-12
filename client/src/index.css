@@ -427,3 +427,514 @@ body {
 .shadow-lg  { box-shadow: var(--shadow-lg); }
 .shadow-accent { box-shadow: var(--shadow-accent); }
 .shadow-warm   { box-shadow: var(--shadow-warm); }
+
+
+/* ============================================================
+   MOBILE OVERFLOW SAFETY NET
+   Add this block to your global stylesheet (e.g. index.css /
+   App.css, alongside your existing :root theme variables).
+   ============================================================ */
+
+html, body, #root {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Prevent any absolutely-positioned decorative element (glow blobs,
+   floating chips, orbit rings) from ever creating a horizontal
+   scrollbar, even if a future edit forgets to clamp its width. */
+* {
+  max-width: 100%;
+}
+
+/* Long unbroken strings (long names, emails, links) should wrap
+   instead of forcing the layout wider on narrow screens. */
+h1, h2, h3, p, span, a {
+  overflow-wrap: break-word;
+}
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE RESPONSIVENESS GUIDE & BEST PRACTICES
+   For Omkar Jadhav's Premium Black & Gold Portfolio
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ============================================================
+   TAILWIND BREAKPOINTS (Already built-in)
+   ============================================================ */
+// sm:  640px   (tablets)
+// md:  768px   (small laptops)
+// lg:  1024px  (desktops)
+// xl:  1280px  (large desktops)
+
+/* ============================================================
+   CRITICAL MOBILE SAFE PRACTICES
+   ============================================================ */
+
+/* 1. Prevent Horizontal Scrolling */
+html, body, #root {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+* {
+  max-width: 100%;
+}
+
+/* 2. Text Must Always Wrap */
+h1, h2, h3, h4, h5, h6, p, span, a {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* 3. Touch-Friendly Tap Targets */
+button, a, input, select, textarea {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* 4. Mobile Padding & Spacing */
+@media (max-width: 640px) {
+  section {
+    padding: 1rem 1rem !important; /* 16px on sides */
+  }
+  
+  .container {
+    max-width: 100% !important;
+    padding: 0 1rem !important;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE PATTERNS FOR EACH COMPONENT
+   ============================================================ */
+
+/* HERO SECTION */
+.hero-content {
+  /* Desktop: 2-column layout */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+
+@media (max-width: 768px) {
+  .hero-content {
+    /* Tablet: Stack vertically */
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-content {
+    /* Mobile: Full-width single column */
+    padding: 0 1rem;
+    gap: 1.5rem;
+  }
+  
+  .hero-content h1 {
+    font-size: clamp(2rem, 6vw, 4rem) !important;
+    line-height: 1.2;
+  }
+  
+  .hero-content p {
+    font-size: clamp(0.875rem, 3vw, 1rem) !important;
+  }
+}
+
+/* GRID LAYOUTS */
+.responsive-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .responsive-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.responsive-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+  .responsive-grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .responsive-grid-3 {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* CARD LAYOUTS */
+.card {
+  padding: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .card {
+    padding: 1rem;
+    border-radius: 1rem;
+  }
+}
+
+/* ============================================================
+   MOBILE-SPECIFIC ANIMATIONS
+   ============================================================ */
+
+/* Reduce animations on mobile for better performance */
+@media (max-width: 768px) {
+  * {
+    animation-duration: 0.3s !important;
+    animation-delay: 0 !important;
+  }
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE TYPOGRAPHY
+   ============================================================ */
+
+/* Use clamp() for fluid typography */
+h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+h3 {
+  font-size: clamp(1.25rem, 3vw, 1.875rem);
+}
+
+p {
+  font-size: clamp(0.875rem, 2vw, 1rem);
+}
+
+/* ============================================================
+   BUTTON RESPONSIVENESS
+   ============================================================ */
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  min-height: 44px;
+}
+
+@media (max-width: 640px) {
+  .btn {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+/* ============================================================
+   FORM RESPONSIVENESS
+   ============================================================ */
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.input, textarea, select {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.75rem;
+  min-height: 44px;
+}
+
+@media (max-width: 640px) {
+  .input, textarea, select {
+    padding: 0.875rem;
+    font-size: 1.125rem; /* Prevents zoom on iOS */
+    border-radius: 0.5rem;
+  }
+}
+
+/* ============================================================
+   IMAGE RESPONSIVENESS
+   ============================================================ */
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Responsive image containers */
+.image-container {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .image-container {
+    aspect-ratio: 4 / 3;
+    border-radius: 1rem;
+  }
+}
+
+/* ============================================================
+   NAVIGATION RESPONSIVENESS
+   ============================================================ */
+
+/* Mobile-first navigation */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 1rem;
+}
+
+.nav-menu {
+  display: none;
+}
+
+.nav-toggle {
+  display: block;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+  }
+  
+  .nav-menu {
+    display: flex;
+    gap: 2rem;
+  }
+  
+  .nav-toggle {
+    display: none;
+  }
+}
+
+/* ============================================================
+   MODAL/POPUP RESPONSIVENESS
+   ============================================================ */
+
+.modal {
+  max-width: 90vw;
+  max-height: 90vh;
+  width: auto;
+  border-radius: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .modal {
+    max-width: 95vw;
+    max-height: 85vh;
+    border-radius: 1rem;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .modal {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 1rem;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+/* ============================================================
+   COMPONENT-SPECIFIC RESPONSIVE CLASSES
+   ============================================================ */
+
+/* Stack flex items on mobile */
+.flex-responsive {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .flex-responsive {
+    flex-direction: row;
+    gap: 2rem;
+  }
+}
+
+/* Responsive text alignment */
+.text-center-mobile {
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .text-center-mobile {
+    text-align: left;
+  }
+}
+
+/* Responsive margin utilities */
+.mx-auto-mobile {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ============================================================
+   PRINT RESPONSIVENESS
+   ============================================================ */
+
+@media print {
+  /* Hide navigation and non-essential elements */
+  .navbar, .footer, .sidebar, .modal {
+    display: none !important;
+  }
+  
+  /* Optimize spacing for print */
+  body {
+    font-size: 11pt;
+    line-height: 1.6;
+  }
+  
+  /* Ensure proper page breaks */
+  .section {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+}
+
+/* ============================================================
+   PERFORMANCE OPTIMIZATIONS FOR MOBILE
+   ============================================================ */
+
+/* Reduce blur effects on mobile */
+@media (max-width: 768px) {
+  .backdrop-blur-sm {
+    backdrop-filter: blur(2px) !important;
+  }
+  
+  .backdrop-blur-xl {
+    backdrop-filter: blur(4px) !important;
+  }
+}
+
+/* Lazy load images */
+img[loading="lazy"] {
+  background: linear-gradient(90deg, #171717 25%, #222 50%, #171717 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ============================================================
+   RECOMMENDED MOBILE-FIRST APPROACH FOR NEW COMPONENTS
+   ============================================================ */
+
+/* MOBILE-FIRST EXAMPLE */
+.component {
+  /* Mobile defaults (320px and up) */
+  display: block;
+  padding: 1rem;
+  font-size: 0.875rem;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  /* Tablet */
+  .component {
+    padding: 1.25rem;
+    font-size: 0.9375rem;
+  }
+}
+
+@media (min-width: 768px) {
+  /* iPad/Small Laptop */
+  .component {
+    padding: 1.5rem;
+    font-size: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* Desktop */
+  .component {
+    padding: 2rem;
+    font-size: 1.0625rem;
+  }
+}
+
+/* ============================================================
+   TESTING CHECKLIST FOR MOBILE RESPONSIVENESS
+   ============================================================ */
+
+/*
+✓ Test on actual devices:
+  - iPhone 12 (390px)
+  - iPhone 14 Pro Max (430px)
+  - iPad (768px)
+  - iPad Pro (1024px)
+  - Android phones (320px-412px)
+
+✓ Test touch interactions:
+  - Button tap targets (min 44x44px)
+  - Link hover states
+  - Form input focus states
+
+✓ Test orientations:
+  - Portrait mode
+  - Landscape mode
+
+✓ Test on various networks:
+  - 4G
+  - 3G
+  - Slow connections
+
+✓ Performance:
+  - Lighthouse score
+  - Core Web Vitals
+  - Image optimization
+
+✓ Accessibility:
+  - Color contrast
+  - Font sizes
+  - Touch target sizes
+  - Keyboard navigation
+*/

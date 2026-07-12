@@ -3,38 +3,66 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 const API_BASE = "/api";
+// ─────────────────────────────────────────────────────────────────────────────
+// CHAT AI
+// ─────────────────────────────────────────────────────────────────────────────
 
-// ─── CHAT AI ─────────────────────────────────────────────────────────────────
-export const chatAI = async (message, history = []) => {
+export const chatAI = async (
+  message,
+  history = [],
+  systemPrompt = ""
+) => {
   try {
     const messagesPayload = [
       ...(history || []).map((m) => ({
         role: m.role,
-        content: m.text || m.content,
+        content: m.content || m.text,
       })),
-      { role: "user", content: message },
+      {
+        role: "user",
+        content: message,
+      },
     ];
 
     const response = await fetch(`${API_BASE}/ai/chat`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ messages: messagesPayload }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        systemPrompt,
+        messages: messagesPayload,
+      }),
     });
 
-    if (!response.ok) {
-      const errData = await response.json().catch(() => ({}));
-      throw new Error(errData.message || `API error: ${response.status}`);
+    const data = await response.json();
+
+    if (!response.ok || !data.success) {
+      throw new Error(
+        data.message || `API Error: ${response.status}`
+      );
     }
 
-    const data = await response.json();
     return {
-      reply: data.data?.message?.content || "Sorry, I couldn't generate a response.",
+      reply:
+        data.data?.message?.content ||
+        "Sorry, I couldn't generate a response.",
     };
   } catch (error) {
-    console.error("[AIService] Error:", error);
-    throw new Error(error.message || "Failed to get AI response.");
+    console.error("[AIService] Chat Error:", error);
+
+    throw new Error(
+      error.message || "Unable to connect to AI server.",
+      { cause: error }
+    );
   }
 };
+
+
+
+
+
+
 
 // ─── AI TOOL: RESUME BUILDER ─────────────────────────────────────────────────
 export const generateResume = async (details) => {
@@ -50,7 +78,7 @@ export const generateResume = async (details) => {
     return { resume: data.data.resume };
   } catch (error) {
     console.error("[AIService] Resume Error:", error);
-    throw new Error(error.message);
+    throw new Error(error.message, { cause: error });
   }
 };
 
@@ -68,7 +96,7 @@ export const analyzeResume = async (resumeText, targetRole) => {
     return data.data.analysis;
   } catch (error) {
     console.error("[AIService] Analyze Error:", error);
-    throw new Error(error.message);
+    throw new Error(error.message, { cause: error });
   }
 };
 

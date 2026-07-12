@@ -1,10 +1,11 @@
 // ═══════════════════════════════════════════════════════════════
-//  ABOUT — Premium Black & Gold (Enhanced Animations)
+//  ABOUT — Premium Black & Gold (Mobile Responsive + Live Stats)
 //  Location: src/pages/About/About.jsx
 // ═══════════════════════════════════════════════════════════════
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useInView, useMotionValue, useTransform, useSpring } from "framer-motion";
+import { statsService } from "../../services/statsService"; // adjust path if needed
 
 const STACK = [
   { name: "React.js", level: 90 },
@@ -17,18 +18,20 @@ const STACK = [
   { name: "Tailwind CSS", level: 92 },
 ];
 
-const STATS = [
+// FIX: fallback stats used if the backend call fails or hasn't loaded yet,
+// so the section never renders empty/broken.
+const DEFAULT_STATS = [
   { value: "6+", label: "Projects Shipped" },
   { value: "2", label: "Internships" },
   { value: "4+", label: "Tech Stacks" },
   { value: "100%", label: "Ownership" },
 ];
 
-/* ─── Floating Particle ─── */
+/* ─── Floating Particle — hidden on mobile to reduce clutter/perf cost ─── */
 function Particle({ delay, x, y, size, duration, opacity }) {
   return (
     <span
-      className="absolute rounded-full pointer-events-none"
+      className="absolute rounded-full pointer-events-none hidden sm:block"
       style={{
         width: size,
         height: size,
@@ -41,7 +44,7 @@ function Particle({ delay, x, y, size, duration, opacity }) {
   );
 }
 
-/* ─── Animated Corner Accent ─── */
+/* ─── Animated Corner Accent — scaled down on mobile ─── */
 function CornerAccent({ position }) {
   const styles = {
     "top-left": {
@@ -49,28 +52,24 @@ function CornerAccent({ position }) {
       borderTop: "2px solid #D4AF37",
       borderLeft: "2px solid #D4AF37",
       borderTopLeftRadius: "16px",
-      width: "48px", height: "48px",
     },
     "top-right": {
       top: "-1px", right: "-1px",
       borderTop: "2px solid #D4AF37",
       borderRight: "2px solid #D4AF37",
       borderTopRightRadius: "16px",
-      width: "48px", height: "48px",
     },
     "bottom-left": {
       bottom: "-1px", left: "-1px",
       borderBottom: "2px solid #D4AF37",
       borderLeft: "2px solid #D4AF37",
       borderBottomLeftRadius: "16px",
-      width: "48px", height: "48px",
     },
     "bottom-right": {
       bottom: "-1px", right: "-1px",
       borderBottom: "2px solid #D4AF37",
       borderRight: "2px solid #D4AF37",
       borderBottomRightRadius: "16px",
-      width: "48px", height: "48px",
     },
   };
   return (
@@ -79,7 +78,7 @@ function CornerAccent({ position }) {
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="absolute"
+      className="absolute w-8 h-8 sm:w-12 sm:h-12"
       style={styles[position]}
     />
   );
@@ -104,7 +103,7 @@ function SkillTag({ name, level, index }) {
       className="group relative"
     >
       <div
-        className="relative overflow-hidden rounded-full px-4 py-2 border transition-all duration-400 cursor-default"
+        className="relative overflow-hidden rounded-full px-3.5 sm:px-4 py-1.5 sm:py-2 border transition-all duration-400 cursor-default"
         style={{
           borderColor: "rgba(212,175,55,0.15)",
           background: "rgba(212,175,55,0.04)",
@@ -127,9 +126,9 @@ function SkillTag({ name, level, index }) {
             width: isInView ? `${level}%` : "0%",
           }}
         />
-        <span className="relative z-10 flex items-center gap-2">
-          <span className="text-xs font-mono text-[#F0D060]">{name}</span>
-          <span className="text-[10px] font-mono text-[#D4AF37]/50 tabular-nums">
+        <span className="relative z-10 flex items-center gap-1.5 sm:gap-2">
+          <span className="text-[11px] sm:text-xs font-mono text-[#F0D060]">{name}</span>
+          <span className="text-[9px] sm:text-[10px] font-mono text-[#D4AF37]/50 tabular-nums">
             {isInView ? `${level}%` : "—"}
           </span>
         </span>
@@ -139,7 +138,7 @@ function SkillTag({ name, level, index }) {
 }
 
 /* ─── Stat Card ─── */
-function StatCard({ value, label, index }) {
+function StatCard({ value, label, index, loading }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 24, scale: 0.92 }}
@@ -153,7 +152,7 @@ function StatCard({ value, label, index }) {
       className="relative group"
     >
       <div
-        className="relative overflow-hidden rounded-2xl p-5 text-center border transition-all duration-400"
+        className="relative overflow-hidden rounded-2xl p-3.5 sm:p-5 text-center border transition-all duration-400"
         style={{
           borderColor: "rgba(212,175,55,0.08)",
           background: "rgba(23,23,23,0.5)",
@@ -176,16 +175,17 @@ function StatCard({ value, label, index }) {
           }}
         />
         <div
-          className="text-3xl sm:text-4xl font-display font-bold mb-1"
+          className="text-2xl sm:text-3xl md:text-4xl font-display font-bold mb-1"
           style={{
             background: "linear-gradient(135deg, #D4AF37, #F0D060)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
+            opacity: loading ? 0.4 : 1,
           }}
         >
           {value}
         </div>
-        <div className="text-[11px] tracking-[0.15em] text-[#737373] uppercase font-medium">
+        <div className="text-[9px] sm:text-[11px] tracking-[0.1em] sm:tracking-[0.15em] text-[#737373] uppercase font-medium">
           {label}
         </div>
       </div>
@@ -199,7 +199,7 @@ function AnimatedDivider({ delay = 0 }) {
   const isInView = useInView(ref, { once: true });
 
   return (
-    <div ref={ref} className="relative w-full h-px my-8 overflow-hidden">
+    <div ref={ref} className="relative w-full h-px my-6 sm:my-8 overflow-hidden">
       <div
         className="absolute inset-0"
         style={{
@@ -235,6 +235,34 @@ export default function About() {
   const scrollY = useMotionValue(0);
   const glowOffset = useTransform(scrollY, [0, 600], [0, -60]);
   const glowSpring = useSpring(glowOffset, { stiffness: 80, damping: 30 });
+
+  // ── Live stats from backend, falling back to defaults on error ──
+  const [stats, setStats] = useState(DEFAULT_STATS);
+  const [statsLoading, setStatsLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const fetchStats = async () => {
+      try {
+        const res = await statsService.getAboutStats();
+        const data = res?.data?.data || res?.data;
+        if (!cancelled && data?.stats?.length) {
+          setStats(data.stats);
+        }
+      } catch (err) {
+        // Backend not reachable / not built yet — silently keep defaults
+        console.warn("Falling back to default About stats:", err.message);
+      } finally {
+        if (!cancelled) setStatsLoading(false);
+      }
+    };
+
+    fetchStats();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     const onScroll = () => scrollY.set(window.scrollY);
@@ -272,7 +300,7 @@ export default function About() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative w-full overflow-hidden bg-[#0A0A0A] text-[#FFFFFF] min-h-screen flex items-center py-28 px-4 sm:px-6"
+      className="relative w-full overflow-x-hidden overflow-y-hidden bg-[#0A0A0A] text-[#FFFFFF] min-h-screen flex items-center py-16 sm:py-20 lg:py-28 px-4 sm:px-6"
       style={{ fontFamily: "'Inter', sans-serif" }}
     >
       <style>{`
@@ -315,11 +343,11 @@ export default function About() {
       <div className="absolute inset-0 bg-gradient-to-br from-[#0A0A0A] via-[#111111] to-[#0D0D0D]" />
 
       <motion.div
-        className="absolute w-[560px] h-[560px] rounded-full bg-[#D4AF37]/[0.06] blur-[140px] glow-float"
+        className="absolute w-[300px] sm:w-[560px] h-[300px] sm:h-[560px] rounded-full bg-[#D4AF37]/[0.06] blur-[90px] sm:blur-[140px] glow-float"
         style={{ top: "-10%", right: "-5%", y: glowSpring }}
       />
       <motion.div
-        className="absolute w-[480px] h-[480px] rounded-full bg-[#F0D060]/[0.04] blur-[130px] glow-float-2"
+        className="absolute w-[260px] sm:w-[480px] h-[260px] sm:h-[480px] rounded-full bg-[#F0D060]/[0.04] blur-[80px] sm:blur-[130px] glow-float-2"
         style={{ bottom: "-15%", left: "-10%", y: glowSpring }}
       />
 
@@ -341,12 +369,12 @@ export default function About() {
       {/* ── Main Content ── */}
       <div className="relative z-10 container mx-auto max-w-5xl">
         {/* Section Header */}
-        <div className="mb-14">
+        <div className="mb-10 sm:mb-14">
           <motion.span
             {...revealLine(0)}
-            className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-[#D4AF37]/10 bg-[#D4AF37]/[0.03] backdrop-blur-sm text-xs font-medium tracking-[0.18em] text-[#A3A3A3] uppercase mb-6"
+            className="inline-flex items-center gap-2 sm:gap-2.5 px-3.5 sm:px-4 py-1.5 rounded-full border border-[#D4AF37]/10 bg-[#D4AF37]/[0.03] backdrop-blur-sm text-[10px] sm:text-xs font-medium tracking-[0.1em] sm:tracking-[0.18em] text-[#A3A3A3] uppercase mb-5 sm:mb-6 max-w-full"
           >
-            <span className="relative flex h-2 w-2">
+            <span className="relative flex h-2 w-2 shrink-0">
               <span className="absolute inline-flex h-full w-full rounded-full bg-[#D4AF37] opacity-70 animate-ping" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#D4AF37]" />
             </span>
@@ -355,7 +383,7 @@ export default function About() {
 
           <motion.h2
             {...revealLine(0.1)}
-            className="font-display font-bold tracking-tight text-4xl sm:text-5xl lg:text-6xl text-[#FFFFFF]"
+            className="font-display font-bold tracking-tight text-3xl sm:text-5xl lg:text-6xl text-[#FFFFFF]"
           >
             Who{" "}
             <span
@@ -407,7 +435,7 @@ export default function About() {
           />
 
           <div
-            className="relative rounded-2xl p-8 md:p-12 border border-[#D4AF37]/10 bg-[#171717]/40 backdrop-blur-xl"
+            className="relative rounded-2xl p-5 sm:p-8 md:p-12 border border-[#D4AF37]/10 bg-[#171717]/40 backdrop-blur-xl"
             style={{
               boxShadow:
                 "0 20px 60px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(212,175,55,0.03)",
@@ -420,7 +448,7 @@ export default function About() {
 
             <motion.p
               {...revealLine(0.35)}
-              className="text-base sm:text-lg text-[#A3A3A3] leading-[1.8] mb-5"
+              className="text-sm sm:text-base md:text-lg text-[#A3A3A3] leading-[1.7] sm:leading-[1.8] mb-4 sm:mb-5"
             >
               I'm{" "}
               <span className="text-[#FFFFFF] font-semibold">
@@ -435,7 +463,7 @@ export default function About() {
 
             <motion.p
               {...revealLine(0.45)}
-              className="text-base sm:text-lg text-[#A3A3A3] leading-[1.8] mb-2"
+              className="text-sm sm:text-base md:text-lg text-[#A3A3A3] leading-[1.7] sm:leading-[1.8] mb-2"
             >
               My expertise spans React.js, Node.js, Express.js, and SQL, backed by
               a strong foundation in data structures, algorithms, and software
@@ -448,15 +476,16 @@ export default function About() {
 
             <AnimatedDivider delay={0.6} />
 
+            {/* Stats grid — now backed by the API, falls back gracefully */}
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.5 }}
-              className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-2"
+              className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 mb-2"
             >
-              {STATS.map((stat, i) => (
-                <StatCard key={stat.label} {...stat} index={i} />
+              {stats.map((stat, i) => (
+                <StatCard key={stat.label} {...stat} index={i} loading={statsLoading} />
               ))}
             </motion.div>
 
@@ -468,8 +497,8 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ delay: 0.7 }}
             >
-              <div className="flex items-center gap-3 mb-5">
-                <h3 className="text-xs font-medium tracking-[0.18em] text-[#A3A3A3] uppercase">
+              <div className="flex items-center gap-3 mb-4 sm:mb-5">
+                <h3 className="text-[10px] sm:text-xs font-medium tracking-[0.12em] sm:tracking-[0.18em] text-[#A3A3A3] uppercase whitespace-nowrap">
                   Tech Stack
                 </h3>
                 <div
@@ -481,7 +510,7 @@ export default function About() {
                 />
               </div>
 
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2 sm:gap-3">
                 {STACK.map((skill, i) => (
                   <SkillTag key={skill.name} {...skill} index={i} />
                 ))}
@@ -490,20 +519,20 @@ export default function About() {
 
             <AnimatedDivider delay={1.0} />
 
-            {/* ✅ FIXED: Using Link from react-router-dom instead of href="#" */}
+            {/* CTA buttons — full-width stacked on mobile */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.9, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="flex flex-wrap gap-4"
+              className="flex flex-col xs:flex-row sm:flex-row flex-wrap gap-3 sm:gap-4"
             >
-              <Link to="/contact">
+              <Link to="/contact" className="w-full xs:w-auto sm:w-auto">
                 <motion.span
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.97 }}
                   transition={{ duration: 0.25 }}
-                  className="group relative inline-block px-7 py-3.5 rounded-xl bg-[#D4AF37] text-[#0A0A0A] font-display font-semibold text-sm overflow-hidden cursor-pointer"
+                  className="group relative flex xs:inline-flex sm:inline-flex items-center justify-center w-full xs:w-auto px-7 py-3.5 rounded-xl bg-[#D4AF37] text-[#0A0A0A] font-display font-semibold text-sm overflow-hidden cursor-pointer"
                 >
                   <span
                     className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
@@ -518,12 +547,12 @@ export default function About() {
                 </motion.span>
               </Link>
 
-              <Link to="/projects">
+              <Link to="/projects" className="w-full xs:w-auto sm:w-auto">
                 <motion.span
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.97 }}
                   transition={{ duration: 0.25 }}
-                  className="inline-block px-7 py-3.5 rounded-xl border border-[#D4AF37]/15 bg-[#D4AF37]/[0.03] font-display font-semibold text-sm text-[#FFFFFF] hover:border-[#D4AF37]/50 hover:text-[#D4AF37] hover:bg-[#D4AF37]/[0.06] transition-all duration-300 cursor-pointer"
+                  className="flex xs:inline-flex sm:inline-flex items-center justify-center w-full xs:w-auto px-7 py-3.5 rounded-xl border border-[#D4AF37]/15 bg-[#D4AF37]/[0.03] font-display font-semibold text-sm text-[#FFFFFF] hover:border-[#D4AF37]/50 hover:text-[#D4AF37] hover:bg-[#D4AF37]/[0.06] transition-all duration-300 cursor-pointer"
                 >
                   View Projects
                 </motion.span>
