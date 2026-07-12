@@ -28,7 +28,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // =====================================
-// CORS CONFIGURATION - PLAIN URLs ONLY
+// CORS CONFIGURATION
 // =====================================
 
 const allowedOrigins = [
@@ -44,9 +44,17 @@ const corsOptions = {
     if (!origin) {
       return callback(null, true);
     }
+
+    // Check exact match
     if (allowedOrigins.indexOf(origin) !== -1) {
       return callback(null, true);
     }
+
+    // ALLOW ALL VERCEL PREVIEW URLS FOR THIS PROJECT
+    if (origin.match(/^https:\/\/portfolio-website-fullstack-.*\.vercel\.app$/)) {
+      return callback(null, true);
+    }
+
     console.error("CORS blocked:", origin);
     return callback(new Error("Not allowed by CORS"));
   },
