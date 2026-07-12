@@ -128,7 +128,7 @@ export default function ResumeModal({ isOpen, onClose }) {
                 </div>
               </div>
               <div style={S.hActions}>
-                <a href="/resume.pdf" download="Omkar_Jadhav_Resume.pdf" style={S.dlBtn} onClick={(e) => e.stopPropagation()}>
+                <a href="../../../public/resume/Omkar_Jadhav_Resume (2).pdf" download="Omkar_Jadhav_Resume.pdf" style={S.dlBtn} onClick={(e) => e.stopPropagation()}>
                   ⬇ Download PDF
                 </a>
                 <a href="/resume" style={S.viewBtn} onClick={(e) => { e.stopPropagation(); onClose(); }}>
