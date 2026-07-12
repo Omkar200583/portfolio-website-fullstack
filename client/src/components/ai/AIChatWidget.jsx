@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { chatAI } from "../../services/AIService";
+import { chatAI } from "../../services/aiService";
 import {
   MessageSquare,
   X,
@@ -101,7 +101,7 @@ export default function AIChatWidget() {
       {open && (
         <div className="mb-4 flex flex-col w-[340px] sm:w-[360px] max-w-[calc(100vw-24px)] h-[500px] sm:h-[540px] max-h-[75vh] rounded-2xl border border-yellow-500/20 bg-[#101010]/95 backdrop-blur-xl shadow-2xl overflow-hidden">
 
-          {/* ── Header ── */}
+          {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-yellow-500/10">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-full bg-yellow-500 flex items-center justify-center">
@@ -123,7 +123,7 @@ export default function AIChatWidget() {
             </button>
           </div>
 
-          {/* ── Messages ── */}
+          {/* Messages */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.map((msg) => {
               const isUser = msg.role === "user";
@@ -133,14 +133,12 @@ export default function AIChatWidget() {
                   key={msg.id}
                   className={`flex gap-2 ${isUser ? "justify-end" : ""}`}
                 >
-                  {/* Bot avatar — left side */}
                   {!isUser && (
                     <div className="w-8 h-8 rounded-full bg-yellow-500 flex items-center justify-center shrink-0">
                       <Bot className="w-4 h-4 text-black" />
                     </div>
                   )}
 
-                  {/* Bubble */}
                   <div
                     className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm leading-6 ${
                       isUser
@@ -157,7 +155,6 @@ export default function AIChatWidget() {
                     )}
                   </div>
 
-                  {/* User avatar — right side */}
                   {isUser && (
                     <div className="w-8 h-8 rounded-full bg-[#222] flex items-center justify-center shrink-0">
                       <User className="w-4 h-4 text-white" />
@@ -170,7 +167,7 @@ export default function AIChatWidget() {
             <div ref={endRef} />
           </div>
 
-          {/* ── Input ── */}
+          {/* Input */}
           <form
             onSubmit={handleSend}
             className="flex gap-2 p-3 border-t border-yellow-500/10"
@@ -198,7 +195,7 @@ export default function AIChatWidget() {
         </div>
       )}
 
-      {/* ── Floating Button ── */}
+      {/* Floating Button */}
       <button
         onClick={() => setOpen((prev) => !prev)}
         className="w-14 h-14 rounded-full bg-yellow-500 hover:bg-yellow-400 text-black flex items-center justify-center shadow-[0_0_30px_rgba(212,175,55,.45)] transition-all hover:scale-110"
