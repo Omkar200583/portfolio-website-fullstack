@@ -1,12 +1,16 @@
 // ═══════════════════════════════════════════════════════════════
 //  HERO — Premium Black & Gold (PERFECTLY CENTERED IMAGE & ORBITS)
 //  ✅ Fixed: Image centering, orbit alignment, responsive sizing
+//  ✅ Fixed: overflow-hidden on section so bleeding glow blobs no
+//     longer inflate page scroll height (was causing "extra scroll
+//     needed" on every page that includes Hero)
 // ═══════════════════════════════════════════════════════════════
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Volume2, ArrowRight, Download, Square } from "lucide-react";
 import ResumeModal from "../ResumeModal/ResumeModal";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { smoothScrollToElement } from "../../utils/smoothScroll.js";
 
 const NAME = "Omkar Nilkanth Jadhav";
 const ROLE = "Full Stack Developer | Software Engineer | MERN Specialist";
@@ -21,8 +25,8 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { 
-      staggerChildren: 0.12, 
+    transition: {
+      staggerChildren: 0.12,
       delayChildren: 0.15,
       duration: 0.6
     },
@@ -165,12 +169,12 @@ function ProfileCircle({ src, alt }) {
 
   // ✅ Calculate orbit radii based on container size
   const orbitRadii = containerSize > 0 ? {
-   
+
       orbit1: containerSize * 0.40,
       orbit2: containerSize * 0.43,
       orbit3: containerSize * 0.37,
       orbit4: containerSize * 0.46,
-  
+
   } : { orbit1: 0, orbit2: 0, orbit3: 0, orbit4: 0 };
 
   return (
@@ -183,11 +187,11 @@ function ProfileCircle({ src, alt }) {
     >
       <style>{`
         @keyframes orbitSpin {
-          from { 
-            transform: rotate(0deg) translateX(var(--orbit-r)) rotate(0deg); 
+          from {
+            transform: rotate(0deg) translateX(var(--orbit-r)) rotate(0deg);
           }
-          to { 
-            transform: rotate(360deg) translateX(var(--orbit-r)) rotate(-360deg); 
+          to {
+            transform: rotate(360deg) translateX(var(--orbit-r)) rotate(-360deg);
           }
         }
 
@@ -312,7 +316,7 @@ function ProfileCircle({ src, alt }) {
             radius={orbitRadii.orbit1}
             color="#D4AF37"
           />
-          
+
           {/* Second orbit - medium, light gold */}
           <OrbitDot
             size={5}
@@ -321,7 +325,7 @@ function ProfileCircle({ src, alt }) {
             radius={orbitRadii.orbit2}
             color="#F0D060"
           />
-          
+
           {/* Third orbit - smaller, cream */}
           <OrbitDot
             size={4}
@@ -330,7 +334,7 @@ function ProfileCircle({ src, alt }) {
             radius={orbitRadii.orbit3}
             color="#E8C847"
           />
-          
+
           {/* Fourth orbit - tiny, pale gold */}
           <OrbitDot
             size={3}
@@ -499,7 +503,7 @@ export default function Hero() {
   const profileImagePath = "/images/Photo.png";
 
   return (
-    <section className="relative w-full min-h-screen overflow-x-hidden bg-[#0A0A0A] text-[#FFFFFF] flex items-center justify-center font-[Inter]">
+    <section className="relative w-full min-h-screen overflow-hidden bg-[#0A0A0A] text-[#FFFFFF] flex items-center justify-center font-[Inter]">
       <style>{`
         .font-display { font-family: 'Space Grotesk', sans-serif; }
 
@@ -514,15 +518,6 @@ export default function Hero() {
           50% { transform: translate(-24px, 24px) scale(1.04); }
         }
         .glow-float-2 { animation: floatGlow2 18s ease-in-out infinite; }
-
-        * {
-          scroll-behavior: smooth;
-        }
-
-        html {
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-        }
       `}</style>
 
       {/* Background gradient */}
@@ -588,6 +583,12 @@ export default function Hero() {
               >
                 <motion.a
                   href="#projects"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const el = document.getElementById("projects");
+                    smoothScrollToElement(el, 72, 650);
+                    window.history.pushState(null, "", "#projects");
+                  }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.97 }}
                   transition={{ duration: 0.25 }}
