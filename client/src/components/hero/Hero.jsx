@@ -4,6 +4,9 @@
 //  ✅ Fixed: overflow-hidden on section so bleeding glow blobs no
 //     longer inflate page scroll height (was causing "extra scroll
 //     needed" on every page that includes Hero)
+//  ✅ Fixed: GitHub/LinkedIn links now point to real profiles
+//     (previously "https://github.com" / "https://linkedin.com",
+//     mismatched with the correct links used in Contact.jsx)
 // ═══════════════════════════════════════════════════════════════
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
@@ -14,6 +17,8 @@ import { smoothScrollToElement } from "../../utils/smoothScroll.js";
 
 const NAME = "Omkar Nilkanth Jadhav";
 const ROLE = "Full Stack Developer | Software Engineer | MERN Specialist";
+const GITHUB_URL = "https://github.com/Omkar200583";
+const LINKEDIN_URL = "https://linkedin.com/in/omkar-jadhav-6915052a1";
 
 const SUMMARY =
   "Results-driven Computer Science graduate specializing in secure backend systems and scalable full stack applications. Experienced in building production-grade REST APIs with Node.js and Express, implementing JWT and OAuth 2.0 authentication, and designing efficient PostgreSQL, MySQL, and MongoDB data layers — backed by hands-on internship and project experience across the MERN stack.";
@@ -372,9 +377,8 @@ function ProfileCircle({ src, alt }) {
     onError={() => setImageError(true)}
     className="w-full h-full rounded-full"
     style={{
-      objectFit: "contain",      // Shows the full image
-      objectPosition: "center",
-      transform: "scale(0.9)",   // Makes the image slightly smaller
+      objectFit: "cover",        // Fills the circle edge-to-edge, no empty space
+      objectPosition: "center 20%",  // Biases the crop toward the face/head
       opacity: imageLoaded ? 1 : 0.5,
       transition: "0.3s ease",
     }}
@@ -619,7 +623,7 @@ export default function Hero() {
                 className="flex items-center justify-center lg:justify-start gap-5 sm:gap-6 pt-3 sm:pt-4"
               >
                 <a
-                  href="https://github.com"
+                  href={GITHUB_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-[#A3A3A3] text-sm font-medium hover:text-[#D4AF37] transition-colors duration-250 group"
@@ -629,7 +633,7 @@ export default function Hero() {
                 </a>
                 <span className="w-px h-4 bg-[#D4AF37]/15" />
                 <a
-                  href="https://linkedin.com"
+                  href={LINKEDIN_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-[#A3A3A3] text-sm font-medium hover:text-[#D4AF37] transition-colors duration-250 group"

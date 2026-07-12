@@ -1,5 +1,10 @@
 // ═══════════════════════════════════════════════════════════════
 //  CONTACT — Premium Black & Gold (Fully Animated + Icons)
+//  ✅ Fixed: profile image was using object-cover + object-top,
+//     which tightly crops the circle and can cut off the head or
+//     shoulders depending on the source photo's aspect ratio.
+//     Switched to object-contain (same approach as Hero.jsx) so
+//     the full photo is always visible inside the circle.
 // ═══════════════════════════════════════════════════════════════
 import React, { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
@@ -108,6 +113,18 @@ export default function Contact() {
         .ring-pulse { animation: ringPulse 6s ease-in-out infinite; }
         @keyframes shineSweep { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
         .btn-shine:hover .shine-effect { animation: shineSweep 0.7s ease-out forwards; }
+        @keyframes orbitRingRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .orbit-ring { animation: orbitRingRotate 10s linear infinite; }
+        .orbit-ring-rev { animation: orbitRingRotate 14s linear infinite reverse; }
+        .profile-photo-frame {
+          width: 320px;
+          height: 320px;
+          aspect-ratio: 1 / 1;
+          border-radius: 9999px;
+        }
+        @media (max-width: 768px) {
+          .profile-photo-frame { width: 260px; height: 260px; }
+        }
       `}</style>
 
       <div className="absolute inset-0 bg-gradient-to-br from-[#0A0A0A] via-[#111111] to-[#0D0D0D]" />
@@ -136,14 +153,39 @@ export default function Contact() {
           {/* LEFT — Profile */}
           <div className="flex flex-col items-center text-center">
             {/* Image */}
-            <motion.div {...leftStagger(0)} className="relative w-[200px] sm:w-[240px] aspect-square mb-6 group">
-              <div className="absolute -inset-6 rounded-full bg-gradient-to-br from-[#D4AF37]/20 via-[#F0D060]/10 to-transparent blur-3xl ring-pulse" />
-              <div className="absolute -inset-3 rounded-full border border-[#D4AF37]/15 transition-all duration-500 group-hover:border-[#D4AF37]/35" />
+            <motion.div
+              {...leftStagger(0)}
+              className="relative mb-6 group mx-auto profile-photo-frame"
+            >
+              {/* Ambient glow, sits behind everything */}
+              <div className="absolute -inset-30 rounded-full bg-gradient-to-br from-[#D4AF37]/25 via-[#F0D060]/10 to-transparent blur-[100px] ring-pulse" />
+
+              {/* Rotating orbit ring — SVG circle, just slightly bigger than the photo */}
+              <div className="absolute inset-[-5px] orbit-ring">
+                <svg viewBox="0 0 100 100" className="w-full h-full">
+                  <defs>
+                    <linearGradient id="ringGradOuter" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#D4AF37" />
+                      <stop offset="50%" stopColor="#F5E08A" />
+                      <stop offset="100%" stopColor="#B8941F" />
+                    </linearGradient>
+                  </defs>
+                  <circle cx="50" cy="50" r="48" fill="none" stroke="url(#ringGradOuter)" strokeWidth="1.6" opacity="0.8" />
+                </svg>
+              </div>
+
+              {/* Static inner ring, right at the edge of the photo */}
+              <div className="absolute -inset-1 rounded-full border border-[#D4AF37]/15 transition-all duration-500 group-hover:border-[#D4AF37]/35" />
+
               <motion.div whileHover={{ scale: 1.04 }} transition={{ duration: 0.3 }}
-                className="relative w-full h-full rounded-full overflow-hidden border border-[#D4AF37]/15 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.6)] bg-[#171717] transition-shadow duration-500 group-hover:shadow-[0_0_40px_rgba(212,175,55,0.3)]"
+                className="relative w-full h-full rounded-full overflow-hidden border border-[#D4AF37]/15 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.6)] bg-[#171717] transition-shadow duration-500 group-hover:shadow-[0_0_40px_rgba(212,175,55,0.3)] flex items-center justify-center"
               >
-                <img src="/images/Photo.png" alt={NAME} className="w-full h-full object-cover object-top" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/30 via-transparent to-transparent" />
+                <img
+                  src="/images/Photo.png"
+                  alt={NAME}
+                  className="w-full h-full object-cover rounded-full"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/30 via-transparent to-transparent pointer-events-none" />
               </motion.div>
             </motion.div>
 
