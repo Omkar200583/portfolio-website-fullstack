@@ -2,7 +2,13 @@
 // AI Service — Production Mode (Connected to Backend)
 // ─────────────────────────────────────────────────────────────────────────────
 
-const API_BASE = "/api";
+// ✅ FIXED: was a relative "/api" which only works if frontend + backend share
+// a domain. Frontend is on Vercel, backend is on Render — different origins —
+// so this now matches the same pattern used in analyticsService.js.
+const API_BASE = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL}/api`
+  : "https://portfolio-backend-vh57.onrender.com/api";
+
 // ─────────────────────────────────────────────────────────────────────────────
 // CHAT AI
 // ─────────────────────────────────────────────────────────────────────────────
@@ -26,6 +32,7 @@ export const chatAI = async (
 
     const response = await fetch(`${API_BASE}/ai/chat`, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -58,17 +65,12 @@ export const chatAI = async (
   }
 };
 
-
-
-
-
-
-
 // ─── AI TOOL: RESUME BUILDER ─────────────────────────────────────────────────
 export const generateResume = async (details) => {
   try {
     const response = await fetch(`${API_BASE}/ai/resume/generate`, {
       method: "POST",
+      credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(details),
     });
@@ -87,6 +89,7 @@ export const analyzeResume = async (resumeText, targetRole) => {
   try {
     const response = await fetch(`${API_BASE}/ai/resume/analyze`, {
       method: "POST",
+      credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ resumeText, jobDescription: targetRole }),
     });
@@ -105,6 +108,7 @@ export const interviewAI = async (question, answer) => {
   try {
     const response = await fetch(`${API_BASE}/ai/interview/answer`, {
       method: "POST",
+      credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ answer, sessionId: question }),
     });
@@ -123,6 +127,7 @@ export const careerGuideAI = async (goal) => {
   try {
     const response = await fetch(`${API_BASE}/ai/career/advice`, {
       method: "POST",
+      credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ question: goal }),
     });
@@ -136,16 +141,10 @@ export const careerGuideAI = async (goal) => {
   }
 };
 
-// ─── PAGE VIEW TRACKER ──────────────────────────────────────────────────────
-export const trackPageView = (path) => {
-  console.log("[Analytics] Page view:", path);
-};
-
 // ─── ADMIN AI SERVICE ───────────────────────────────────────────────────────
 export const aiService = {
   getStats: async () => {
     try {
-      // ✅ FIXED: Was using "token", but your app stores it as "accessToken"
       const token = localStorage.getItem("accessToken");
       if (!token) {
         console.error("[AIService] No accessToken found in localStorage");
@@ -153,9 +152,10 @@ export const aiService = {
       }
 
       const response = await fetch(`${API_BASE}/ai/stats`, {
-        headers: { 
+        credentials: "include",
+        headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}` 
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -181,6 +181,7 @@ export const aiService = {
 export const startInterviewSession = async (jobTitle, resumeText) => {
   const response = await fetch(`${API_BASE}/ai/interview/start`, {
     method: "POST",
+    credentials: "include",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       jobTitle,
@@ -201,6 +202,7 @@ export const startInterviewSession = async (jobTitle, resumeText) => {
 export const submitInterviewAnswer = async (sessionId, answer) => {
   const response = await fetch(`${API_BASE}/ai/interview/answer`, {
     method: "POST",
+    credentials: "include",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ sessionId, answer }),
   });
@@ -216,7 +218,9 @@ export const submitInterviewAnswer = async (sessionId, answer) => {
 
 // ─── GET SUMMARY ─────────────────────────────────────────────────────────────
 export const getInterviewSummaryAPI = async (sessionId) => {
-  const response = await fetch(`${API_BASE}/ai/interview/summary/${sessionId}`);
+  const response = await fetch(`${API_BASE}/ai/interview/summary/${sessionId}`, {
+    credentials: "include",
+  });
   const data = await response.json();
 
   if (!data.success) {
@@ -230,6 +234,7 @@ export const getInterviewSummaryAPI = async (sessionId) => {
 export const textToSpeechAPI = async (text) => {
   const response = await fetch(`${API_BASE}/ai/tts`, {
     method: "POST",
+    credentials: "include",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ text }),
   });
@@ -250,6 +255,7 @@ export const transcribeAudioAPI = async (audioBlob) => {
 
   const response = await fetch(`${API_BASE}/ai/transcribe`, {
     method: "POST",
+    credentials: "include",
     body: formData,
   });
 
@@ -269,6 +275,7 @@ export const uploadInterviewRecordingAPI = async (sessionId, videoBlob) => {
 
   const response = await fetch(`${API_BASE}/recordings/upload/${sessionId}`, {
     method: "POST",
+    credentials: "include",
     body: formData,
   });
 
