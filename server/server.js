@@ -52,21 +52,19 @@ const corsOptions = {
 
   origin: (origin, callback) => {
 
-    // Allow Postman, mobile apps, backend requests
+    // Allow Postman and backend requests
     if (!origin) {
       return callback(null, true);
     }
 
 
     if (allowedOrigins.includes(origin)) {
-
       return callback(null, true);
-
     }
 
 
     console.error(
-      "❌ CORS blocked origin:",
+      "❌ CORS blocked:",
       origin
     );
 
@@ -102,7 +100,6 @@ const corsOptions = {
 
 
 
-
 // =====================================
 // MIDDLEWARE
 // =====================================
@@ -118,7 +115,6 @@ app.use(
 app.use(cors(corsOptions));
 
 
-// Preflight requests
 app.options(
   "*",
   cors(corsOptions)
@@ -128,15 +124,16 @@ app.options(
 
 app.use(
   express.json({
-    limit:"50mb"
+    limit: "50mb"
   })
 );
 
 
+
 app.use(
   express.urlencoded({
-    extended:true,
-    limit:"50mb"
+    extended: true,
+    limit: "50mb"
   })
 );
 
@@ -147,8 +144,8 @@ app.use(
 );
 
 
-app.use(requestLogger);
 
+app.use(requestLogger);
 
 
 
@@ -160,7 +157,6 @@ app.use(
   "/uploads",
   express.static("uploads")
 );
-
 
 
 
@@ -254,7 +250,6 @@ app.use(
 
 
 
-
 // =====================================
 // HEALTH CHECK
 // =====================================
@@ -262,11 +257,11 @@ app.use(
 
 app.get(
   "/api/health",
-  (req,res)=>{
+  (req, res) => {
 
     res.json({
 
-      status:"ok",
+      status: "ok",
 
       environment:
       process.env.NODE_ENV,
@@ -281,6 +276,20 @@ app.get(
   }
 );
 
+
+
+// Optional root route for Render health check
+
+app.get(
+  "/",
+  (req, res) => {
+
+    res.json({
+      message: "Portfolio Backend API Running 🚀"
+    });
+
+  }
+);
 
 
 
@@ -300,23 +309,21 @@ app.use(
 
 
 
-
 // =====================================
 // START SERVER
 // =====================================
 
 
-const startServer = async()=>{
+const startServer = async () => {
 
-  try{
-
+  try {
 
     await connectDB();
 
 
     app.listen(
       PORT,
-      ()=>{
+      () => {
 
         logger.info(
           `Server running on port ${PORT}`
@@ -340,13 +347,11 @@ const startServer = async()=>{
           allowedOrigins
         );
 
-
       }
     );
 
 
-  }
-  catch(error){
+  } catch (error) {
 
 
     console.error(
