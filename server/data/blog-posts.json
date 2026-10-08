@@ -1,0 +1,69 @@
+[
+  {
+    "id": "1",
+    "title": "Getting Started with Modern Web Development",
+    "slug": "getting-started-modern-web-dev",
+    "excerpt": "A comprehensive guide to modern web development tools and practices.",
+    "content": "<h2>Modern Web Development in 2025</h2>\n<p>The web development landscape has evolved dramatically. Let's explore the key technologies shaping the future.</p>\n<h3>Frontend Frameworks</h3>\n<p>React, Vue, and Svelte continue to dominate the frontend space. Each brings unique advantages to the table.</p>\n<h3>Backend Evolution</h3>\n<p>Node.js with Express remains a solid choice, while new runtimes like Bun are pushing performance boundaries.</p>",
+    "coverImage": "/images/blog/web-dev.jpg",
+    "tags": [
+      "web development",
+      "javascript",
+      "frontend"
+    ],
+    "status": "published",
+    "views": 1250,
+    "createdAt": "2025-06-15T10:00:00Z",
+    "updatedAt": "2025-06-15T10:00:00Z"
+  },
+  {
+    "id": "2",
+    "title": "Building a Portfolio That Stands Out",
+    "slug": "building-portfolio-stands-out",
+    "excerpt": "Learn how to create a developer portfolio that catches recruiters' attention.",
+    "content": "<h2>Stand Out From The Crowd</h2>\n<p>Your portfolio is your digital first impression. Here's how to make it count.</p>\n<h3>Show, Don't Tell</h3>\n<p>Instead of listing technologies, demonstrate them through real projects with live demos.</p>\n<h3>Performance Matters</h3>\n<p>A fast-loading portfolio shows you care about user experience and technical quality.</p>",
+    "coverImage": "/images/blog/portfolio.jpg",
+    "tags": [
+      "portfolio",
+      "career",
+      "design"
+    ],
+    "status": "published",
+    "views": 890,
+    "createdAt": "2025-06-20T14:30:00Z",
+    "updatedAt": "2025-06-20T14:30:00Z"
+  },
+  {
+    "id": "3",
+    "title": "The Art of Clean Code",
+    "slug": "art-of-clean-code",
+    "excerpt": "Principles and practices for writing maintainable, readable code.",
+    "content": "<h2>Clean Code Principles</h2>\n<p>Writing code is easy. Writing code that others (and future you) can understand is hard.</p>\n<h3>Meaningful Names</h3>\n<p>Variables, functions, and classes should reveal intent. No more `x`, `temp`, or `data`.</p>\n<h3>Small Functions</h3>\n<p>Functions should do one thing, do it well, and do it only.</p>",
+    "coverImage": "/images/blog/clean-code.jpg",
+    "tags": [
+      "programming",
+      "best practices",
+      "clean code"
+    ],
+    "status": "published",
+    "views": 2100,
+    "createdAt": "2025-06-25T09:15:00Z",
+    "updatedAt": "2025-06-25T09:15:00Z"
+  },
+  {
+    "id": "4",
+    "title": "Draft: Upcoming Tech Trends",
+    "slug": "upcoming-tech-trends",
+    "excerpt": "A look at what's coming next in technology.",
+    "content": "<p>This is a draft post. Content coming soon...</p>",
+    "coverImage": "/images/blog/tech-trends.jpg",
+    "tags": [
+      "technology",
+      "trends"
+    ],
+    "status": "draft",
+    "views": 0,
+    "createdAt": "2025-06-28T16:00:00Z",
+    "updatedAt": "2025-06-28T16:00:00Z"
+  }
+]
