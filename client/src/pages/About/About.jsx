@@ -230,7 +230,6 @@ function AnimatedDivider({ delay = 0 }) {
    ═══════════════════════════════════════════════════════════════ */
 export default function About() {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   const scrollY = useMotionValue(0);
   const glowOffset = useTransform(scrollY, [0, 600], [0, -60]);
