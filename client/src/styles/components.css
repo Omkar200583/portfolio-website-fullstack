@@ -1,0 +1,86 @@
+/* ==========================================================
+   components.css — shared page-level styles.
+   Import in main.jsx after motion.css:  import "./styles/components.css";
+   Replaces the <style>{`...`}</style> blocks inside every page
+   (duplicate keyframes, .font-display, @import url(fonts), blur orbs).
+   ========================================================== */
+
+@layer components {
+  /* One spacing rule for every section/page (outer wrappers add none). */
+  .page-section {
+    position: relative;
+    width: 100%;
+    padding-block: clamp(56px, 8vw, 112px);
+    padding-inline: clamp(16px, 4vw, 48px);
+  }
+
+  /* Shine sweep on buttons (hover devices only) */
+  .btn-shine {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-shine .shine-effect {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in srgb, var(--accent-light) 28%, transparent),
+      transparent
+    );
+  }
+
+  /* Timeline node ping */
+  .node-ping {
+    animation: nodePing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  /* Floating particles (set --d and --delay inline) */
+  .particle {
+    position: absolute;
+    border-radius: 9999px;
+    pointer-events: none;
+    animation: particleFloat var(--d, 10s) ease-in-out var(--delay, 0s) infinite;
+  }
+
+  /* Responsive circular photo */
+  .profile-frame {
+    width: min(72vw, 320px);
+    aspect-ratio: 1 / 1;
+    border-radius: 9999px;
+  }
+
+  /* Slim modal scrollbar */
+  .custom-modal-scroll::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-modal-scroll::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--accent) 35%, transparent);
+    border-radius: 999px;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-shine:hover .shine-effect {
+    animation: shineSweep 0.7s ease-out forwards;
+  }
+}
+
+@keyframes shineSweep {
+  to { transform: translateX(100%); }
+}
+
+@keyframes nodePing {
+  0%   { transform: scale(1);   opacity: 0.6; }
+  70%  { transform: scale(2.5); opacity: 0; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+@keyframes particleFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  25%      { transform: translate3d(8px, -20px, 0) scale(1.2); }
+  50%      { transform: translate3d(-5px, -35px, 0) scale(0.8); opacity: 0.4; }
+  75%      { transform: translate3d(12px, -15px, 0) scale(1.1); }
+}

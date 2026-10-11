@@ -1,11 +1,11 @@
-// src/layouts/AdminLayout.jsx
 import React, { useState } from "react";
 import { NavLink, Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import {
   LayoutDashboard, FolderOpen, Award, BookOpen, Mail, Briefcase,
   Brain, Users, BarChart2, Settings, LogOut, Menu, X, Bot,
-  ChevronDown, Shield, Bell, ExternalLink, Sparkles
+  ChevronDown, Shield, Bell, ExternalLink, Sparkles,
+  GraduationCap,  // NEW ✅
 } from "lucide-react";
 
 const NAV_GROUPS = [
@@ -15,9 +15,10 @@ const NAV_GROUPS = [
     items: [
       { label: "Projects", to: "/admin/projects", icon: FolderOpen },
       { label: "Skills", to: "/admin/skills", icon: Award },
+      { label: "Experience", to: "/admin/experience", icon: Briefcase },
+      { label: "Research", to: "/admin/research", icon: GraduationCap },  // NEW ✅
       { label: "Blogs", to: "/admin/blogs", icon: BookOpen },
       { label: "Certificates", to: "/admin/certificates", icon: Award },
-      { label: "Experience", to: "/admin/experience", icon: Briefcase },
     ],
   },
   { label: "Communication", items: [{ label: "Messages", to: "/admin/messages", icon: Mail }] },
@@ -34,11 +35,19 @@ const NAV_GROUPS = [
 ];
 
 const PAGE_TITLES = {
-  "/admin": "Dashboard", "/admin/projects": "Projects", "/admin/skills": "Skills",
-  "/admin/blogs": "Blogs", "/admin/certificates": "Certificates",
-  "/admin/experience": "Experience", "/admin/messages": "Messages",
-  "/admin/ai": "AI Usage", "/admin/ai-users": "AI Users", "/admin/users": "Users",
-  "/admin/analytics": "Analytics", "/admin/settings": "Settings",
+  "/admin": "Dashboard",
+  "/admin/projects": "Projects",
+  "/admin/skills": "Skills",
+  "/admin/experience": "Experience",
+  "/admin/research": "Research Papers",   // NEW ✅
+  "/admin/blogs": "Blogs",
+  "/admin/certificates": "Certificates",
+  "/admin/messages": "Messages",
+  "/admin/ai": "AI Usage",
+  "/admin/ai-users": "AI Users",
+  "/admin/users": "Users",
+  "/admin/analytics": "Analytics",
+  "/admin/settings": "Settings",
 };
 
 const AdminLayout = () => {
@@ -61,7 +70,7 @@ const AdminLayout = () => {
   return (
     <div className="h-screen w-full overflow-hidden flex bg-[#08080c]">
 
-      {/* ═══════ SIDEBAR ═══════ */}
+      {/* SIDEBAR */}
       <aside
         className={`
           w-[250px] h-full bg-[#0c0c12] border-r border-white/[0.06]
@@ -73,7 +82,6 @@ const AdminLayout = () => {
           lg:translate-x-0
         `}
       >
-        {/* Logo */}
         <div className="h-14 px-4 border-b border-white/[0.06] flex items-center justify-between shrink-0">
           <div className="flex items-center gap-2.5">
             <div className="w-7 h-7 rounded-md bg-cyan-500/15 border border-cyan-500/25 flex items-center justify-center">
@@ -89,7 +97,6 @@ const AdminLayout = () => {
           </button>
         </div>
 
-        {/* Nav */}
         <nav className="flex-1 overflow-y-auto py-3 px-2.5">
           {NAV_GROUPS.map((group, gi) => (
             <div key={gi} className={gi > 0 ? "mt-5" : ""}>
@@ -133,7 +140,6 @@ const AdminLayout = () => {
           ))}
         </nav>
 
-        {/* User Card */}
         <div className="p-2.5 border-t border-white/[0.06] shrink-0">
           <div className="flex items-center gap-2.5 px-2.5 py-2 rounded-md bg-white/[0.02]">
             <div className="w-7 h-7 rounded-full bg-gradient-to-br from-cyan-500 to-cyan-400 flex items-center justify-center text-black font-bold text-[11px] shrink-0">
@@ -148,7 +154,7 @@ const AdminLayout = () => {
         </div>
       </aside>
 
-      {/* ═══════ MOBILE BACKDROP ═══════ */}
+      {/* MOBILE BACKDROP */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 bg-black/80 z-40 lg:hidden"
@@ -156,10 +162,9 @@ const AdminLayout = () => {
         />
       )}
 
-      {/* ═══════ MAIN AREA ═══════ */}
+      {/* MAIN AREA */}
       <div className="flex-1 flex flex-col h-full min-w-0">
 
-        {/* Header */}
         <header className="h-14 shrink-0 bg-[#0c0c12] border-b border-white/[0.06] flex items-center justify-between px-4 lg:px-5">
           <div className="flex items-center gap-3">
             <button
@@ -186,7 +191,6 @@ const AdminLayout = () => {
               <ExternalLink className="w-3 h-3" /> View Site
             </a>
 
-            {/* Profile Dropdown */}
             <div className="relative">
               <button
                 onClick={() => setProfileOpen(!profileOpen)}
@@ -229,12 +233,10 @@ const AdminLayout = () => {
           </div>
         </header>
 
-        {/* Page Content */}
         <main className="flex-1 overflow-y-auto bg-[#08080c]">
           <Outlet />
         </main>
 
-        {/* Footer */}
         <footer className="h-10 shrink-0 bg-[#0c0c12] border-t border-white/[0.06] flex items-center justify-between px-5 text-[10px] text-gray-600">
           <span>© {new Date().getFullYear()} Omkar Portfolio</span>
           <span className="hidden sm:inline">React + Node.js</span>

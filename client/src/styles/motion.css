@@ -1,0 +1,154 @@
+/* ==========================================================
+   motion.css — CSS side of the animation system.
+   Import in main.jsx AFTER layout.css:  import "./styles/motion.css";
+   ========================================================== */
+
+@layer components {
+  /* ---- Background layer ---- */
+  .animated-background {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    contain: strict;
+  }
+
+  .animated-background .orb--one {
+    top: 8%;
+    left: -140px;
+    width: min(70vw, 460px);
+    aspect-ratio: 1;
+  }
+
+  .animated-background .orb--two {
+    right: -160px;
+    bottom: 6%;
+    width: min(70vw, 520px);
+    aspect-ratio: 1;
+  }
+
+  .orbit-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(92vw, 720px);
+    aspect-ratio: 1;
+    margin: calc(min(92vw, 720px) / -2) 0 0 calc(min(92vw, 720px) / -2);
+    border-radius: 9999px;
+    border: 1px dashed color-mix(in srgb, var(--accent) 14%, transparent);
+  }
+
+  /* Page content sits above the background */
+  .main-layout__content,
+  .navbar {
+    position: relative;
+  }
+  .main-layout__content {
+    z-index: 1;
+  }
+  .navbar {
+    position: fixed;
+  }
+
+  /* ---- Hover (only on devices that really hover; no sticky hover on touch) ---- */
+  .hover-lift {
+    transition: transform 0.3s var(--animation-easing),
+      box-shadow 0.3s var(--animation-easing),
+      border-color 0.3s ease;
+  }
+
+  .hover-glow {
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  /* Touch feedback */
+  .press:active {
+    transform: scale(0.97);
+  }
+
+  /* ---- Loading ---- */
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+    border: 3px solid color-mix(in srgb, var(--accent) 20%, transparent);
+    border-top-color: var(--accent);
+    animation: spinSlow 0.9s linear infinite;
+  }
+
+  .spinner--sm {
+    width: 18px;
+    height: 18px;
+    border-width: 2px;
+  }
+
+  .page-loader {
+    display: grid;
+    place-items: center;
+    min-height: 60svh;
+  }
+
+  /* ---- Subtle flash: a status dot, never a blinking block ---- */
+  .flash-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background: var(--accent);
+    animation: flashDot 2.4s ease-in-out infinite;
+  }
+
+  /* ---- Orbiting dot around an avatar (circular effect) ---- */
+  .orbit {
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    animation: spinSlow 14s linear infinite;
+    pointer-events: none;
+  }
+  .orbit::after {
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    margin-left: -4px;
+    border-radius: 9999px;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent);
+  }
+}
+
+@keyframes flashDot {
+  0%, 100% { opacity: 0.35; transform: scale(0.85); }
+  50%      { opacity: 1;    transform: scale(1); }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hover-lift:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-accent);
+    border-color: var(--border-hover);
+  }
+
+  .hover-glow:hover {
+    box-shadow: var(--shadow-accent);
+    border-color: var(--border-hover);
+  }
+}
+
+/* Phones: calmer, cheaper */
+@media (max-width: 640px) {
+  .orbit-ring {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner,
+  .flash-dot,
+  .orbit {
+    animation: none;
+  }
+}

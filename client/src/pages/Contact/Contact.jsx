@@ -1,11 +1,4 @@
-// ═══════════════════════════════════════════════════════════════
-//  CONTACT — Premium Black & Gold (Fully Animated + Icons)
-//  ✅ Fixed: profile image was using object-cover + object-top,
-//     which tightly crops the circle and can cut off the head or
-//     shoulders depending on the source photo's aspect ratio.
-//     Switched to object-contain (same approach as Hero.jsx) so
-//     the full photo is always visible inside the circle.
-// ═══════════════════════════════════════════════════════════════
+
 import React, { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Mail, Send, FileText, AlertCircle, CheckCircle2 } from "lucide-react";

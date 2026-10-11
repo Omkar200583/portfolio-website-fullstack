@@ -1,0 +1,158 @@
+/* ==========================================================
+   layout.css — app shell only (navbar offset, footer, fixed UI)
+   Loaded AFTER index.css. Everything is in @layer so Tailwind
+   utilities in your JSX can still override it.
+
+   Replaces: globals.css (Tailwind v3 directives + Vite starter
+   leftovers) and the mobile-first "iPhone 16" file, which styled
+   bare `section`, `button`, `input`, `h1`, `p`, `div` selectors
+   UNLAYERED with gold colors and so beat every Tailwind class.
+   ========================================================== */
+
+@layer base {
+  /* One overflow clip, on html only (stacked clips cause ghosting) */
+  html {
+    overflow-x: clip;
+  }
+
+  body,
+  #root {
+    overflow-x: visible;
+  }
+
+  /* Prevent iOS auto-zoom on focus without bloating every input */
+  input,
+  textarea,
+  select {
+    font-size: max(16px, 1rem);
+  }
+
+  canvas {
+    touch-action: none;
+  }
+}
+
+@layer components {
+  .main-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100svh;
+    width: 100%;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  /* Offset equals the REAL navbar height token */
+  .main-layout__content {
+    flex: 1 1 auto;
+    width: 100%;
+    min-width: 0;
+    padding-top: var(--navbar-height);
+  }
+
+  .main-layout__page {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Fixed layers get their own compositor layer (no repaint on scroll) */
+  .navbar,
+  .back-to-top,
+  .scroll-progress-mini {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  .scroll-progress-mini {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    z-index: 70;
+    transform-origin: 0 50%;
+    background: linear-gradient(90deg, var(--accent), var(--warm));
+    pointer-events: none;
+  }
+
+  .back-to-top {
+    position: fixed;
+    right: max(16px, env(safe-area-inset-right));
+    bottom: max(88px, calc(env(safe-area-inset-bottom) + 72px)); /* clear the AI button */
+    z-index: 50;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    color: var(--accent);
+  }
+
+  /* Sections paint independently */
+  .section-isolate {
+    isolation: isolate;
+  }
+
+  /* ---- Navbar helpers (use with your existing Navbar markup) ---- */
+  .navbar {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 60;
+    height: var(--navbar-height);
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .navbar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    height: 100%;
+    width: min(calc(100% - 32px), var(--container-width));
+    margin-inline: auto;
+  }
+
+  /* ---- Footer helpers ---- */
+  .footer-grid {
+    display: grid;
+    gap: 32px;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  @media (min-width: 640px) {
+    .footer-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .footer-grid {
+      grid-template-columns: 1.5fr repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  /* ---- Safe modal sizing ---- */
+  .modal-content {
+    width: min(100% - 24px, 600px);
+    max-height: 90svh;
+    overflow-y: auto;
+  }
+}
+
+/* Huge blur() orbs repaint every scroll frame. Cap any that remain. */
+@media (max-width: 768px) {
+  [class*="blur-[1"],
+  [class*="blur-[2"] {
+    filter: none !important;
+    opacity: 0.6;
+  }
+}
+
+@media print {
+  .scroll-progress-mini,
+  .back-to-top,
+  .navbar {
+    display: none !important;
+  }
+}

@@ -1,149 +1,178 @@
-// ═══════════════════════════════════════════════════════════════
-//  HOME — Mobile Responsive Fixes Applied
-// ═══════════════════════════════════════════════════════════════
 import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import {
+  motion,
+  useInView,
+  useReducedMotion,
+} from "framer-motion";
 
 import Hero from "../../components/hero/Hero";
 import About from "../About/About";
 import Skills from "../Skills/Skills";
 import Projects from "../Projects/Projects";
+import Research from "../Research/Research";
 import Experience from "../Experience/Experience";
 import Contact from "../Contact/Contact";
 
-/* ─── SectionTransition — built right here ─── */
-function SectionTransition({
+
+import useMotionDistance from "../../animations/useMotionDistance";
+import { EASE } from "../../animations/variants";
+
+const SECTION_PADDING =
+  "py-8 sm:py-10 md:py-14 px-4 sm:px-8 md:px-16";
+
+export function SectionTransition({
   children,
   id,
   className = "",
   delay = 0,
   alternateBg = false,
-  isLast = false, // New prop to add bottom spacing
+  isLast = false,
 }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-60px" });
+
+  const isInView = useInView(ref, {
+    once: true,
+    amount: 0.08,
+    margin: "0px 0px -40px 0px",
+  });
+
+  const reduceMotion = useReducedMotion();
+  const motionDistance = useMotionDistance();
+
+  const visible = reduceMotion || isInView;
 
   return (
-    // FIX: overflow-x-hidden as a per-section safety net so any absolutely
-    // positioned glow/chip inside a child section can't create horizontal
-    // scroll on mobile.
     <section
       id={id}
       ref={ref}
-      className={`relative w-full overflow-x-hidden ${className}`}
+      className={[
+        "relative isolate w-full",
+        "overflow-x-clip",
+        className,
+      ].join(" ")}
       style={{
-        paddingBottom: isLast ? "80px" : undefined, // Extra space before footer (reduced for mobile)
-        marginBottom: isLast ? "-24px" : undefined,
+        paddingBottom: isLast ? 32 : undefined,
+        scrollMarginTop: "80px",
       }}
     >
-      {/* Alternate background tint */}
       {alternateBg && (
-        <motion.div
-          className="absolute inset-0 pointer-events-none"
-          style={{ background: "rgba(23,23,23,0.2)" }}
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.8, delay }}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 pointer-events-none"
+          style={{
+            background:
+              "color-mix(in srgb, var(--bg-secondary) 45%, transparent)",
+          }}
         />
       )}
 
-      {/* Top fade line */}
       <div
-        className="absolute top-0 left-0 right-0 h-px pointer-events-none z-10"
+        aria-hidden="true"
+        className="absolute top-0 left-0 right-0 h-px pointer-events-none"
         style={{
           background:
-            "linear-gradient(90deg, transparent, rgba(212,175,55,0.08), transparent)",
+            "linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 12%, transparent), transparent)",
         }}
       />
 
-      {/* Content with reveal */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+        initial={
+          reduceMotion
+            ? false
+            : {
+                opacity: 0,
+                y: motionDistance * 0.35,
+              }
+        }
+        animate={
+          visible
+            ? {
+                opacity: 1,
+                y: 0,
+              }
+            : {
+                opacity: 0,
+                y: motionDistance * 0.35,
+              }
+        }
         transition={{
-          duration: 0.6,
-          delay: delay + 0.1,
-          ease: [0.22, 1, 0.36, 1],
+          duration: reduceMotion ? 0 : 0.65,
+          delay: reduceMotion ? 0 : delay,
+          ease: EASE,
         }}
-        className="relative z-10"
+        className="relative z-10 w-full"
       >
         {children}
       </motion.div>
-
-      {/* Scroll-triggered corner glow — smaller on mobile */}
-      <motion.div
-        className="absolute -top-20 -right-20 w-24 h-24 sm:w-40 sm:h-40 rounded-full pointer-events-none"
-        style={{
-          background: "radial-gradient(circle, rgba(212,175,55,0.08), transparent 70%)",
-          filter: "blur(20px)",
-        }}
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
-        transition={{ duration: 1, delay: delay + 0.3 }}
-      />
     </section>
   );
 }
 
-/* ─── Home Page ─── */
-const Home = () => {
+export default function Home() {
   return (
-    // FIX: global overflow-x-hidden safety net at the page root
-    <div className="bg-[#0A0A0A] text-[#FFFFFF] overflow-x-hidden">
-      {/* Hero — no wrapper, it has its own min-h-screen */}
-      <section id="home" className="relative w-full min-h-screen">
+    <main className="relative w-full overflow-x-clip bg-[var(--bg)] text-[var(--text)]">
+
+
+      <section
+        id="home"
+        className="relative w-full"
+        style={{
+          scrollMarginTop: "80px",
+        }}
+      >
         <Hero />
       </section>
 
-      {/* About — reduced horizontal/vertical padding on mobile */}
       <SectionTransition
         id="about"
-        className="py-14 sm:py-20 md:py-24 px-4 sm:px-8 md:px-16"
-        delay={0}
+        className={SECTION_PADDING}
       >
         <About />
       </SectionTransition>
 
-      {/* Skills — alternate bg */}
       <SectionTransition
         id="skills"
-        className="py-14 sm:py-20 md:py-24 px-4 sm:px-8 md:px-16"
+        className={SECTION_PADDING}
         delay={0.05}
         alternateBg
       >
         <Skills />
       </SectionTransition>
 
-      {/* Projects */}
       <SectionTransition
         id="projects"
-        className="py-14 sm:py-20 md:py-24 px-4 sm:px-8 md:px-16"
+        className={SECTION_PADDING}
         delay={0.05}
       >
         <Projects />
       </SectionTransition>
 
-      {/* Experience — alternate bg */}
       <SectionTransition
-        id="experience"
-        className="py-14 sm:py-20 md:py-24 px-4 sm:px-8 md:px-16"
+        id="research"
+        className={SECTION_PADDING}
         delay={0.05}
         alternateBg
+      >
+        <Research />
+      </SectionTransition>
+
+      <SectionTransition
+        id="experience"
+        className={SECTION_PADDING}
+        delay={0.05}
       >
         <Experience />
       </SectionTransition>
 
-      {/* Contact — isLast adds extra bottom spacing */}
       <SectionTransition
         id="contact"
-        className="py-14 sm:py-20 md:py-24 px-4 sm:px-8 md:px-16"
+        className={SECTION_PADDING}
         delay={0.05}
-        isLast={true}
+        alternateBg
+        isLast
       >
         <Contact />
       </SectionTransition>
-    </div>
+    </main>
   );
-};
-
-export default Home;
+}

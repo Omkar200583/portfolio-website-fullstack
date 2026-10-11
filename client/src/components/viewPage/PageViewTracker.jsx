@@ -3,20 +3,19 @@
 // ═══════════════════════════════════════════════════════════════
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import { trackPageView } from "../services/analyticsService";
+import { trackPageView } from "../../services/analyticsService.js";
 
 const PageViewTracker = () => {
   const location = useLocation();
   const tracked = useRef(new Set());
-
-  useEffect(() => {
-    const path = location.pathname + location.search;
-    if (path.startsWith("/admin")) return;
-    if (tracked.current.has(path)) return;
-    tracked.current.add(path);
-    trackPageView(path);
-  }, [location]);
-
+useEffect(() => {
+  if (!import.meta.env.PROD) return; // optional: skip dev noise
+  const path = location.pathname + location.search;
+  if (path.startsWith("/admin")) return;
+  if (tracked.current.has(path)) return;
+  tracked.current.add(path);
+  trackPageView(path);
+}, [location]);
   return null;
 };
 
